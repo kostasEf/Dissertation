@@ -19,4 +19,30 @@ public struct IntVector2
         a.z += b.z;
         return a;
     }
+
+    public static bool operator ==(IntVector2 a, IntVector2 b)
+    {
+        if(a.x == b.x && a.z == b.z)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
+    public static bool operator !=(IntVector2 a, IntVector2 b)
+    {
+        if (a.x == b.x && a.z == b.z)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+    }
 }

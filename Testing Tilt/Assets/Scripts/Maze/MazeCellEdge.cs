@@ -7,16 +7,7 @@ public abstract class MazeCellEdge : MonoBehaviour {
 
     public MazeDirection direction;
 
-	// Use this for initialization
-	void Start () {
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     public void Initialize(MazeCell cell, MazeCell otherCell, MazeDirection direction)
     {
         this.cell = cell;

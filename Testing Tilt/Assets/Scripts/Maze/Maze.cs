@@ -16,14 +16,44 @@ public class Maze : MonoBehaviour {
 
     public MazeWall wallPrefab;
 
+    public Block_Test blockPrefab;
+
 	// Use this for initialization
 	void Start () {
-	
+        
+        
 	}
+
+    private void InitializeBlock(Block_Test block)
+    {
+        CreateCell(new IntVector2(1, 1));
+        CreateCell(new IntVector2(1, 2));
+        CreateCell(new IntVector2(1, 3));
+        CreateCell(new IntVector2(2, 1));
+        CreateCell(new IntVector2(2, 2));
+        CreateCell(new IntVector2(2, 3));
+        CreateCell(new IntVector2(3, 1));
+        CreateCell(new IntVector2(3, 2));
+        CreateCell(new IntVector2(3, 3));
+
+        cells[1, 1].FullyInitialize();
+        cells[1, 2].FullyInitialize();
+        cells[1, 3].FullyInitialize();
+        cells[2, 1].FullyInitialize();
+        cells[2, 2].FullyInitialize();
+        cells[2, 3].FullyInitialize();
+        cells[3, 1].FullyInitialize();
+        cells[3, 2].FullyInitialize();
+        cells[3, 3].FullyInitialize();
+
+        cells[3, 3].isEntryPoint = true;
+
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
+        
 	}
 
     public MazeCell GetCell(IntVector2 coordinates)
@@ -35,6 +65,11 @@ public class Maze : MonoBehaviour {
     {
         WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
         cells = new MazeCell[size.x, size.z];
+
+        Block_Test block = Instantiate(blockPrefab) as Block_Test;
+        InitializeBlock(block);
+
+        
         List<MazeCell> activeCells = new List<MazeCell>();
         DoFirstGenerationStep(activeCells);
         while (activeCells.Count > 0)
@@ -79,6 +114,10 @@ public class Maze : MonoBehaviour {
                 neighbor = CreateCell(coordinates);
                 CreatePassage(currentCell, neighbor, direction);
                 activeCells.Add(neighbor);
+            }
+            else if(neighbor.isEntryPoint)
+            {
+                CreatePassage(currentCell, neighbor, direction);
             }
             else
             {

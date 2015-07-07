@@ -9,9 +9,16 @@ public class MazeCell : MonoBehaviour {
 
     private int initializedEdgeCount;
 
+    public bool isEntryPoint = false;
+
     public MazeCellEdge GetEdge(MazeDirection direction)
     {
         return edges[(int)direction];
+    }
+
+    public void FullyInitialize()
+    {
+        initializedEdgeCount = 4;
     }
 
     public bool IsFullyInitialized
