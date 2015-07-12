@@ -11,6 +11,8 @@ public class MazeCell : MonoBehaviour {
 
     public bool isEntryPoint = false;
 
+    public bool belongsToBlock = false;
+
     public MazeCellEdge GetEdge(MazeDirection direction)
     {
         return edges[(int)direction];

@@ -92,7 +92,7 @@ public class Maze : MonoBehaviour {
 
     private void DoFirstGenerationStep(List<MazeCell> activeCells)
     {
-        activeCells.Add(CreateCell(RandomCoordinates));
+        activeCells.Add(CreateCell(RandomCoordinates()));
     }
 
     private void DoNextGenerationStep(List<MazeCell> activeCells)
@@ -144,12 +144,20 @@ public class Maze : MonoBehaviour {
         return newCell;
     }
 
-    public IntVector2 RandomCoordinates
+    /*
+    Choose a random coordinate to place the first cell
+    making sure it does not belong inside one of the blocks
+    */
+    public IntVector2 RandomCoordinates()
     {
-        get
-        {
-            return new IntVector2(Random.Range(0, size.x), Random.Range(0, size.z));
-        }
+        
+            IntVector2 randomCoord = new IntVector2(Random.Range(0, size.x), Random.Range(0, size.z));
+            while (cells[randomCoord.x, randomCoord.z] && cells[randomCoord.x, randomCoord.z].IsFullyInitialized)
+            {
+                randomCoord = new IntVector2(Random.Range(0, size.x), Random.Range(0, size.z));
+            }
+            return randomCoord;
+        
     }
 
     public bool ContainsCoordinates(IntVector2 coordinate)
