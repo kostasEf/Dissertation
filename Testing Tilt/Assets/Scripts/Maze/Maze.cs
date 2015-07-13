@@ -24,31 +24,52 @@ public class Maze : MonoBehaviour {
         
 	}
 
-    private void InitializeBlock(Block_Test block)
+    /*
+     * First check all cells where the room is going to be placed to see 
+     * if they are available, then create the cells and FullyInitialize them.   
+    */
+    private bool InitializeRoom(IntVector2 position)
     {
-        CreateCell(new IntVector2(1, 1));
-        CreateCell(new IntVector2(1, 2));
-        CreateCell(new IntVector2(1, 3));
-        CreateCell(new IntVector2(2, 1));
-        CreateCell(new IntVector2(2, 2));
-        CreateCell(new IntVector2(2, 3));
-        CreateCell(new IntVector2(3, 1));
-        CreateCell(new IntVector2(3, 2));
-        CreateCell(new IntVector2(3, 3));
+        
+        int count = 0;
 
-        cells[1, 1].FullyInitialize();
-        cells[1, 2].FullyInitialize();
-        cells[1, 3].FullyInitialize();
-        cells[2, 1].FullyInitialize();
-        cells[2, 2].FullyInitialize();
-        cells[2, 3].FullyInitialize();
-        cells[3, 1].FullyInitialize();
-        cells[3, 2].FullyInitialize();
-        cells[3, 3].FullyInitialize();
+        if (position.x > 1 && position.z > 1 && position.x < size.x - 2 && position.z < size.z - 2)
+        {
+            for (int i = position.x - 1; i <= position.x + 1; i++)
+            {
+                for (int j = position.z - 1; j <= position.z + 1; j++)
+                {
+                    Debug.Log(position.x + ", " + position.z + " " + i + " " + j);
+                    if (cells[i, j] == null)
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
+        
 
-        cells[3, 3].isEntryPoint = true;
+        if (count == 9)
+        {
+            for (int i = position.x - 1; i <= position.x + 1; i++)
+            {
+                for (int j = position.z - 1; j <= position.z + 1; j++)
+                {
+                    CreateCell(new IntVector2(i, j));
+                    cells[i, j].FullyInitialize();
+                }
+            }
+
+            cells[position.x + 1, position.z + 1].isEntryPoint = true;
+            //cells[position.x - 1, position.z - 1].isEntryPoint = true;
+
+            return true;
+        }
 
         
+
+        return false;
+
     }
 	
 	// Update is called once per frame
@@ -66,8 +87,15 @@ public class Maze : MonoBehaviour {
         WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
         cells = new MazeCell[size.x, size.z];
 
-        Block_Test block = Instantiate(blockPrefab) as Block_Test;
-        InitializeBlock(block);
+        //Block_Test block = Instantiate(blockPrefab) as Block_Test;
+        bool roomIsPlaced = false;
+
+        while (roomIsPlaced == false)
+        {
+            roomIsPlaced = InitializeRoom(RandomCoordinates());
+            //roomIsPlaced = InitializeRoom(new IntVector2(2,2));
+        }
+        
 
         
         List<MazeCell> activeCells = new List<MazeCell>();
