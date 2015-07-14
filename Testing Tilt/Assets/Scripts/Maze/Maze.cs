@@ -31,22 +31,18 @@ public class Maze : MonoBehaviour {
     private bool InitializeRoom(IntVector2 position)
     {
         
-        int count = 0;
-
-        if (position.x > 1 && position.z > 1 && position.x < size.x - 2 && position.z < size.z - 2)
-        {
-            for (int i = position.x - 1; i <= position.x + 1; i++)
-            {
-                for (int j = position.z - 1; j <= position.z + 1; j++)
-                {
-                    Debug.Log(position.x + ", " + position.z + " " + i + " " + j);
-                    if (cells[i, j] == null)
-                    {
-                        count++;
-                    }
-                }
-            }
-        }
+        int count = 9;
+        
+        //for (int i = position.x - 1; i <= position.x + 1; i++)
+        //{
+        //    for (int j = position.z - 1; j <= position.z + 1; j++)
+        //    {
+        //        if (cells[i, j] == null)
+        //        {
+        //            count++;
+        //        }
+        //    }
+        //}
         
 
         if (count == 9)
@@ -63,6 +59,7 @@ public class Maze : MonoBehaviour {
             cells[position.x + 1, position.z + 1].isEntryPoint = true;
             //cells[position.x - 1, position.z - 1].isEntryPoint = true;
 
+            
             return true;
         }
 
@@ -82,41 +79,61 @@ public class Maze : MonoBehaviour {
         return cells[coordinates.x, coordinates.z];
     }
 
-    public IEnumerator Generate()
-    {
-        WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
-        cells = new MazeCell[size.x, size.z];
-
-        //Block_Test block = Instantiate(blockPrefab) as Block_Test;
-        bool roomIsPlaced = false;
-
-        while (roomIsPlaced == false)
-        {
-            roomIsPlaced = InitializeRoom(RandomCoordinates());
-            //roomIsPlaced = InitializeRoom(new IntVector2(2,2));
-        }
-        
-
-        
-        List<MazeCell> activeCells = new List<MazeCell>();
-        DoFirstGenerationStep(activeCells);
-        while (activeCells.Count > 0)
-        {
-            yield return delay;
-            DoNextGenerationStep(activeCells);
-        }
-    }
-
-    //public void Generate()
+    //public IEnumerator Generate()
     //{
+    //    WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
     //    cells = new MazeCell[size.x, size.z];
+
+    //    //Block_Test block = Instantiate(blockPrefab) as Block_Test;
+    //    bool roomIsPlaced = false;
+
+    //    while (roomIsPlaced == false)
+    //    {
+    //        roomIsPlaced = InitializeRoom(RandomCoordinates());
+    //        //roomIsPlaced = InitializeRoom(new IntVector2(2,2));
+    //    }
+        
+
+        
     //    List<MazeCell> activeCells = new List<MazeCell>();
     //    DoFirstGenerationStep(activeCells);
     //    while (activeCells.Count > 0)
     //    {
+    //        yield return delay;
     //        DoNextGenerationStep(activeCells);
     //    }
     //}
+
+    public void Generate()
+    {
+        cells = new MazeCell[size.x, size.z];
+
+        //Block_Test block = Instantiate(blockPrefab) as Block_Test;
+        bool roomIsPlaced = false;
+        bool roomIsPlaced2 = false;
+
+        while (roomIsPlaced == false && roomIsPlaced2 == false)
+        {
+            roomIsPlaced = false;
+            roomIsPlaced2 = false;
+
+            roomIsPlaced = InitializeRoom(RandomRoomCoordinates());
+            roomIsPlaced2 = InitializeRoom(RandomRoomCoordinates());
+            
+
+            //roomIsPlaced = InitializeRoom(new IntVector2(2, 2));
+            //roomIsPlaced2 = InitializeRoom(new IntVector2(5, 5));
+        }
+
+
+
+        List<MazeCell> activeCells = new List<MazeCell>();
+        DoFirstGenerationStep(activeCells);
+        while (activeCells.Count > 0)
+        {
+            DoNextGenerationStep(activeCells);
+        }
+    }
 
     private void DoFirstGenerationStep(List<MazeCell> activeCells)
     {
@@ -174,7 +191,7 @@ public class Maze : MonoBehaviour {
 
     /*
     Choose a random coordinate to place the first cell
-    making sure it does not belong inside one of the blocks
+    making sure it does not belong inside one of the rooms
     */
     public IntVector2 RandomCoordinates()
     {
@@ -186,6 +203,33 @@ public class Maze : MonoBehaviour {
             }
             return randomCoord;
         
+    }
+
+    public IntVector2 RandomRoomCoordinates()
+    {
+        int count = 0;
+        IntVector2 randomRoomCoord = new IntVector2(Random.Range(2, size.x - 2), Random.Range(2, size.z - 2));
+        while (count != 9)
+        {
+            count = 0;
+            randomRoomCoord = new IntVector2(Random.Range(2, size.x -2 ), Random.Range(2, size.z - 2));
+
+            for (int i = randomRoomCoord.x - 1; i <= randomRoomCoord.x + 1; i++)
+            {
+                for (int j = randomRoomCoord.z - 1; j <= randomRoomCoord.z + 1; j++)
+                {
+                    if (cells[i, j] == null)
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        
+
+        return randomRoomCoord;
+
     }
 
     public bool ContainsCoordinates(IntVector2 coordinate)

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 
     public Text sizeX, sizeZ;
 
-    private IntVector2 size = new IntVector2(5,5);
+    private IntVector2 size = new IntVector2(15,15);
 
 
 
@@ -40,15 +40,15 @@ public class GameManager : MonoBehaviour {
     {
         mazeInstance = Instantiate(mazePrefab) as Maze;
         mazeInstance.size = size;
-        StartCoroutine(mazeInstance.Generate());
-        //mazeInstance.Generate();
+        //StartCoroutine(mazeInstance.Generate());
+        mazeInstance.Generate();
         //CreatePlayer();
         
     }
 
     public void RestartGame() 
     {
-        StopAllCoroutines();
+        //StopAllCoroutines();
         Destroy(mazeInstance.gameObject);
         //Destroy(ballInstance.gameObject);
         BeginGame();
