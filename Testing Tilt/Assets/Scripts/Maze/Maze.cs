@@ -28,44 +28,20 @@ public class Maze : MonoBehaviour {
      * First check all cells where the room is going to be placed to see 
      * if they are available, then create the cells and FullyInitialize them.   
     */
-    private bool InitializeRoom(IntVector2 position)
+    private void InitializeRoom(IntVector2 position)
     {
         
-        int count = 9;
-        
-        //for (int i = position.x - 1; i <= position.x + 1; i++)
-        //{
-        //    for (int j = position.z - 1; j <= position.z + 1; j++)
-        //    {
-        //        if (cells[i, j] == null)
-        //        {
-        //            count++;
-        //        }
-        //    }
-        //}
-        
-
-        if (count == 9)
+        for (int i = position.x - 1; i <= position.x + 1; i++)
         {
-            for (int i = position.x - 1; i <= position.x + 1; i++)
+            for (int j = position.z - 1; j <= position.z + 1; j++)
             {
-                for (int j = position.z - 1; j <= position.z + 1; j++)
-                {
-                    CreateCell(new IntVector2(i, j));
-                    cells[i, j].FullyInitialize();
-                }
+                CreateCell(new IntVector2(i, j));
+                cells[i, j].FullyInitialize();
             }
-
-            cells[position.x + 1, position.z + 1].isEntryPoint = true;
-            //cells[position.x - 1, position.z - 1].isEntryPoint = true;
-
-            
-            return true;
         }
 
-        
-
-        return false;
+        cells[position.x + 1, position.z + 1].isEntryPoint = true;
+        //cells[position.x - 1, position.z - 1].isEntryPoint = true;
 
     }
 	
@@ -109,22 +85,9 @@ public class Maze : MonoBehaviour {
         cells = new MazeCell[size.x, size.z];
 
         //Block_Test block = Instantiate(blockPrefab) as Block_Test;
-        bool roomIsPlaced = false;
-        bool roomIsPlaced2 = false;
-
-        while (roomIsPlaced == false && roomIsPlaced2 == false)
-        {
-            roomIsPlaced = false;
-            roomIsPlaced2 = false;
-
-            roomIsPlaced = InitializeRoom(RandomRoomCoordinates());
-            roomIsPlaced2 = InitializeRoom(RandomRoomCoordinates());
-            
-
-            //roomIsPlaced = InitializeRoom(new IntVector2(2, 2));
-            //roomIsPlaced2 = InitializeRoom(new IntVector2(5, 5));
-        }
-
+        
+        InitializeRoom(RandomRoomCoordinates());
+        InitializeRoom(RandomRoomCoordinates());
 
 
         List<MazeCell> activeCells = new List<MazeCell>();
