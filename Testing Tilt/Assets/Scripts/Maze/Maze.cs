@@ -85,9 +85,12 @@ public class Maze : MonoBehaviour {
         cells = new MazeCell[size.x, size.z];
 
         //Block_Test block = Instantiate(blockPrefab) as Block_Test;
+
+        for (int i = 0; i < 10; i++)
+        {
+            InitializeRoom(RandomRoomCoordinates());
+        }
         
-        InitializeRoom(RandomRoomCoordinates());
-        InitializeRoom(RandomRoomCoordinates());
 
 
         List<MazeCell> activeCells = new List<MazeCell>();
@@ -96,6 +99,29 @@ public class Maze : MonoBehaviour {
         {
             DoNextGenerationStep(activeCells);
         }
+
+        FindEmptyCells();
+
+    }
+
+    private void FindEmptyCells()
+    {
+        int count = 0;
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.z; j++)
+            {
+                if (cells[i, j] == null)
+                {
+                    CreateCell(new IntVector2(i, j));
+                    cells[i, j].FullyInitialize();
+                }
+                    
+                
+            }
+        }
+
+        
     }
 
     private void DoFirstGenerationStep(List<MazeCell> activeCells)
@@ -171,10 +197,12 @@ public class Maze : MonoBehaviour {
     public IntVector2 RandomRoomCoordinates()
     {
         int count = 0;
+        int tries = 0;
         IntVector2 randomRoomCoord = new IntVector2(Random.Range(2, size.x - 2), Random.Range(2, size.z - 2));
         while (count != 9)
         {
             count = 0;
+            tries++;
             randomRoomCoord = new IntVector2(Random.Range(2, size.x -2 ), Random.Range(2, size.z - 2));
 
             for (int i = randomRoomCoord.x - 1; i <= randomRoomCoord.x + 1; i++)
@@ -189,8 +217,8 @@ public class Maze : MonoBehaviour {
             }
         }
 
-        
 
+        Debug.Log(tries);
         return randomRoomCoord;
 
     }
