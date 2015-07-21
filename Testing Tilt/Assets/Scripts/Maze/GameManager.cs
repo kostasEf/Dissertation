@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour {
 
     public Text sizeX, sizeZ;
 
-    private IntVector2 size = new IntVector2(15,15);
+    private int cubes = 2, spheres = 1;
+
+    private IntVector2 size = new IntVector2(10,10);
 
 
 
@@ -32,14 +34,17 @@ public class GameManager : MonoBehaviour {
             RestartGame();
         }
 
-        sizeX.text = "X = " + size.x.ToString();
-        sizeZ.text = "Z = " + size.z.ToString();
+        sizeX.text = "Cubes = " + cubes.ToString();
+        sizeZ.text = "Spheres = " + spheres.ToString();
 	}
 
     private void BeginGame() 
     {
         mazeInstance = Instantiate(mazePrefab) as Maze;
         mazeInstance.size = size;
+        mazeInstance.cubes = cubes;
+        mazeInstance.spheres = spheres;
+
         //StartCoroutine(mazeInstance.Generate());
         mazeInstance.Generate();
         //CreatePlayer();
@@ -60,23 +65,54 @@ public class GameManager : MonoBehaviour {
         ballInstance = Instantiate(ballPrefab, startPosition, ballPrefab.transform.rotation) as Ball;
     }
 
-    public void addX()
+    public void plusCube()
     {
-        size.x += 1;
+        cubes += 1;
+
+        if ( (cubes + spheres) > 3)
+        {
+            size.x += 2;
+            size.z += 2;
+        }
     }
 
-    public void addZ()
+    public void plusSphere()
     {
-        size.z += 1;
+        spheres += 1;
+
+        if ((cubes + spheres) > 3)
+        {
+            size.x += 2;
+            size.z += 2;
+        }
     }
 
-    public void minusX()
+    public void minusCube()
     {
-        size.x -= 1;
+        if (cubes > 0)
+        {
+            cubes -= 1;
+        }
+
+        if (size.x > 10)
+        {
+            size.x -= 2;
+            size.z -= 2;
+        }
+        
     }
 
-    public void minusZ()
+    public void minusSphere()
     {
-        size.z -= 1;
+        if (spheres > 0)
+        {
+            spheres -= 1;
+        }
+
+        if (size.x > 10)
+        {
+            size.x -= 2;
+            size.z -= 2;
+        }
     }
 }

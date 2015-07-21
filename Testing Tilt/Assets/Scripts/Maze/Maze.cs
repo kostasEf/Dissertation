@@ -6,6 +6,8 @@ public class Maze : MonoBehaviour {
 
     public IntVector2 size;
 
+    public int cubes, spheres;
+
     public MazeCell cellPrefab;
 
     private MazeCell[,] cells;
@@ -18,6 +20,8 @@ public class Maze : MonoBehaviour {
 
     public Block_Test blockPrefab;
 
+    public Block_Test2 blockPrefab2;
+
 	// Use this for initialization
 	void Start () {
         
@@ -28,7 +32,7 @@ public class Maze : MonoBehaviour {
      * First check all cells where the room is going to be placed to see 
      * if they are available, then create the cells and FullyInitialize them.   
     */
-    private void InitializeRoom(IntVector2 position)
+    private void InitializeRoom(IntVector2 position, int roomType)
     {
         
         for (int i = position.x - 1; i <= position.x + 1; i++)
@@ -42,6 +46,20 @@ public class Maze : MonoBehaviour {
 
         cells[position.x + 1, position.z + 1].isEntryPoint = true;
         //cells[position.x - 1, position.z - 1].isEntryPoint = true;
+
+        if (roomType == 1)
+        {
+            Block_Test block = Instantiate(blockPrefab, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_Test;
+            block.transform.parent = transform;
+        }
+        else if (roomType == 2)
+        {
+            Block_Test2 block = Instantiate(blockPrefab2, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_Test2;
+            block.transform.parent = transform;
+        }
+        
+        
+        
 
     }
 	
@@ -84,13 +102,17 @@ public class Maze : MonoBehaviour {
     {
         cells = new MazeCell[size.x, size.z];
 
-        //Block_Test block = Instantiate(blockPrefab) as Block_Test;
-
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < cubes; i++)
         {
-            InitializeRoom(RandomRoomCoordinates());
+            InitializeRoom(RandomRoomCoordinates(), 1);
         }
-        
+
+        for (int i = 0; i < spheres; i++)
+        {
+            InitializeRoom(RandomRoomCoordinates(), 2);
+        }
+
+       
 
 
         List<MazeCell> activeCells = new List<MazeCell>();
@@ -106,7 +128,6 @@ public class Maze : MonoBehaviour {
 
     private void FindEmptyCells()
     {
-        int count = 0;
         for (int i = 0; i < size.x; i++)
         {
             for (int j = 0; j < size.z; j++)
