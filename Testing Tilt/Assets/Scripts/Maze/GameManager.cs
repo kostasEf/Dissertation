@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour {
 
     public Text sizeX, sizeZ;
 
-    private int cubes = 2, spheres = 1;
+    private int cubes = 1, spheres = 2;
 
-    private IntVector2 size = new IntVector2(10,10);
+    private IntVector2 size = new IntVector2(12,12);
 
 
 

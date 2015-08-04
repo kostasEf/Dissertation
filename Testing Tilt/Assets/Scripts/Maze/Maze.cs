@@ -219,16 +219,17 @@ public class Maze : MonoBehaviour {
     {
         int count = 0;
         int tries = 0;
-        IntVector2 randomRoomCoord = new IntVector2(Random.Range(2, size.x - 2), Random.Range(2, size.z - 2));
-        while (count != 9)
+        int gapFromEdge = 2;
+        int searchOffset = 2;
+        IntVector2 randomRoomCoord = new IntVector2(Random.Range(gapFromEdge, size.x - gapFromEdge), Random.Range(gapFromEdge, size.z - gapFromEdge));
+        while (count != 25)
         {
             count = 0;
             tries++;
-            randomRoomCoord = new IntVector2(Random.Range(2, size.x -2 ), Random.Range(2, size.z - 2));
-
-            for (int i = randomRoomCoord.x - 1; i <= randomRoomCoord.x + 1; i++)
+            randomRoomCoord = new IntVector2(Random.Range(gapFromEdge, size.x - gapFromEdge), Random.Range(gapFromEdge, size.z - gapFromEdge));
+            for (int i = randomRoomCoord.x - searchOffset; i <= randomRoomCoord.x + searchOffset; i++)
             {
-                for (int j = randomRoomCoord.z - 1; j <= randomRoomCoord.z + 1; j++)
+                for (int j = randomRoomCoord.z - searchOffset; j <= randomRoomCoord.z + searchOffset; j++)
                 {
                     if (cells[i, j] == null)
                     {
