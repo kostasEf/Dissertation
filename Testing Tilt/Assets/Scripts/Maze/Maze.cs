@@ -22,11 +22,10 @@ public class Maze : MonoBehaviour {
 
     public Block_Test2 blockPrefab2;
 
+    private IntVector2[] entryPoints = new[] { new IntVector2(-1, 0), new IntVector2(1, 0), new IntVector2(0, 1), new IntVector2(0, -1) };
+
 	// Use this for initialization
-	void Start () {
-        
-        
-	}
+	void Start () {}
 
     /*
      * First check all cells where the room is going to be placed to see 
@@ -34,7 +33,7 @@ public class Maze : MonoBehaviour {
     */
     private void InitializeRoom(IntVector2 position, int roomType)
     {
-        
+
         for (int i = position.x - 1; i <= position.x + 1; i++)
         {
             for (int j = position.z - 1; j <= position.z + 1; j++)
@@ -43,8 +42,19 @@ public class Maze : MonoBehaviour {
                 cells[i, j].FullyInitialize();
             }
         }
+        
+        IntVector2 entryPoint = entryPoints[Random.Range(0, entryPoints.Length)];
+        IntVector2 entryPoint2 = entryPoints[Random.Range(0, entryPoints.Length)];
+        while (entryPoint == entryPoint2)
+        {
+            entryPoint2.Assign(entryPoints[Random.Range(0, entryPoints.Length)]);
+        }
 
-        cells[position.x + 1, position.z + 1].isEntryPoint = true;
+        cells[position.x + entryPoint.x, position.z + entryPoint.z].isEntryPoint = true;
+
+        cells[position.x + entryPoint2.x, position.z + entryPoint2.z].isEntryPoint = true;
+
+        //cells[position.x + 1, position.z + 1].isEntryPoint = true;
         //cells[position.x - 1, position.z - 1].isEntryPoint = true;
 
         if (roomType == 1)
@@ -239,8 +249,6 @@ public class Maze : MonoBehaviour {
             }
         }
 
-
-        Debug.Log(tries);
         return randomRoomCoord;
 
     }
