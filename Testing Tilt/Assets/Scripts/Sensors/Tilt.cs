@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Tilt : MonoBehaviour {
 
     private Quaternion localRotation; // 
-    public float speed = 1.0f; // ajustable speed from Inspector in Unity editor
+    private float speed = 3.0f; // ajustable speed from Inspector in Unity editor
 
     private Text text1, text2, text3;
 

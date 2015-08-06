@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
 
     private int cubes = 1, spheres = 2;
 
+    private int cameraDistance = 0;
+
     private IntVector2 size = new IntVector2(12,12);
 
 
@@ -47,15 +49,19 @@ public class GameManager : MonoBehaviour {
 
         //StartCoroutine(mazeInstance.Generate());
         mazeInstance.Generate();
-        //CreatePlayer();
+        Camera.main.transform.position = mazeInstance.CameraPosition.transform.position + new Vector3(0, cameraDistance, 0);
+        Camera.main.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        Camera.main.transform.parent = mazeInstance.CameraPosition.transform;
+        CreatePlayer();
         
     }
 
     public void RestartGame() 
     {
         //StopAllCoroutines();
+        Camera.main.transform.parent = null;
         Destroy(mazeInstance.gameObject);
-        //Destroy(ballInstance.gameObject);
+        Destroy(ballInstance.gameObject);
         BeginGame();
     }
 
@@ -73,6 +79,7 @@ public class GameManager : MonoBehaviour {
         {
             size.x += 2;
             size.z += 2;
+            cameraDistance += 2;
         }
     }
 
@@ -84,6 +91,7 @@ public class GameManager : MonoBehaviour {
         {
             size.x += 2;
             size.z += 2;
+            cameraDistance += 2;
         }
     }
 
@@ -98,6 +106,7 @@ public class GameManager : MonoBehaviour {
         {
             size.x -= 2;
             size.z -= 2;
+            cameraDistance -= 2;
         }
         
     }
@@ -113,6 +122,7 @@ public class GameManager : MonoBehaviour {
         {
             size.x -= 2;
             size.z -= 2;
+            cameraDistance -= 2;
         }
     }
 }

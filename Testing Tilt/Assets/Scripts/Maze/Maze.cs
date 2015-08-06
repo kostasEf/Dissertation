@@ -6,6 +6,8 @@ public class Maze : MonoBehaviour {
 
     public IntVector2 size;
 
+    public GameObject CameraPosition;
+
     public int cubes, spheres;
 
     public MazeCell cellPrefab;
@@ -53,9 +55,6 @@ public class Maze : MonoBehaviour {
         cells[position.x + entryPoint.x, position.z + entryPoint.z].isEntryPoint = true;
 
         cells[position.x + entryPoint2.x, position.z + entryPoint2.z].isEntryPoint = true;
-
-        //cells[position.x + 1, position.z + 1].isEntryPoint = true;
-        //cells[position.x - 1, position.z - 1].isEntryPoint = true;
 
         if (roomType == 1)
         {
