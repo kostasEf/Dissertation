@@ -15,6 +15,10 @@ public class gyroscope : MonoBehaviour {
 
     private float min = 0, max = 0;
 
+    bool slideLeft = false;
+    bool slideRight = false;
+    float speed = 0;
+
     void Start()
     {
         sphere = GetComponent<Rigidbody>();
@@ -22,9 +26,9 @@ public class gyroscope : MonoBehaviour {
         pos = transform.position;
 
         Input.gyro.enabled = true;
-        Screen.autorotateToLandscapeLeft = true;
+        Screen.autorotateToLandscapeLeft = false;
 
-        Screen.autorotateToLandscapeRight = true;
+        Screen.autorotateToLandscapeRight = false;
 
         Screen.autorotateToPortrait = false;
 
@@ -48,24 +52,74 @@ public class gyroscope : MonoBehaviour {
         //                0, 
         //                Input.gyro.userAcceleration.z);
 
-        transform.position = new Vector3(pos.x + Input.gyro.userAcceleration.x * 100 * Time.deltaTime,
-            transform.position.y,
-            pos.z + Input.gyro.userAcceleration.y * 100 * Time.deltaTime);
+        //push();
+        //Slide();
+        Roll();
 
-        //if (Input.gyro.userAcceleration.x > 0 && Mathf.Abs(acceleration) > 1)
-        //{ text1.text = "positive"; }
-        //else if (Input.gyro.userAcceleration.x < 0 && Mathf.Abs(acceleration) > 1)
-        //{ text1.text = "negative"; }
-        //else { text1.text = "nope"; }
+        
 
-        if (acceleration.z < 0 /*&& acceleration.z < min */) min = acceleration.z;
-        if (acceleration.z > 0 /*&& acceleration.z > max */) max = acceleration.z;
+       
 
-        text1.text = min.ToString();
-        text2.text = max.ToString();
+        text1.text = Input.acceleration.z.ToString();
+        //text2.text = Input.gyro.userAcceleration.z.ToString();
         //text3.text = Input.gyro.userAcceleration.z.ToString();
 
 
     }
-   
+    //I sfera stamataei meta tin kinisi
+    private void push()
+    {
+        if (Mathf.Abs(acceleration.x) > 0.045f && Input.acceleration.x > 0.4)
+        {
+            transform.position += new Vector3(Mathf.Abs(acceleration.x) * 2, 0, 0);
+        }
+        else if (Mathf.Abs(acceleration.x) > 0.045f && Input.acceleration.x < -0.4)
+        {
+            transform.position += new Vector3(-Mathf.Abs(acceleration.x) * 2, 0, 0);
+        }
+    }
+
+    private void Slide()
+    {
+
+        
+        if (Mathf.Abs(acceleration.x) > 0.045f && Input.acceleration.x > 0.4)
+        {
+            slideRight = false;
+            slideLeft = true;
+            speed = Mathf.Abs(acceleration.x);
+        }
+        else if (Mathf.Abs(acceleration.x) > 0.045f && Input.acceleration.x < -0.4)
+        {
+            slideLeft = false;
+            slideRight = true;
+            speed = Mathf.Abs(acceleration.x);
+        }
+
+       
+
+        if (slideLeft)
+        {
+            transform.position += new Vector3(speed * Mathf.Abs(acceleration.x) , 0, 0);
+        }
+        else if (slideRight)
+        {
+            transform.position += new Vector3(-speed * Mathf.Abs(acceleration.x) , 0, 0);
+        }
+        
+
+        
+    }
+
+    private void Roll()
+    {
+        if (Mathf.Abs(acceleration.x) > 0.045f && Input.acceleration.x > 0.4)
+        {
+            sphere.AddForce(Vector3.left * -15);
+        }
+        else if (Mathf.Abs(acceleration.x) > 0.045f && Input.acceleration.x < -0.4)
+        {
+            sphere.AddForce(Vector3.left * 15);
+        }
+    }
 }

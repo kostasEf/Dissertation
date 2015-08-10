@@ -46,8 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AStar\Grid.cs" />
-     <Compile Include="Assets\Scripts\AStar\Node.cs" />
      <Compile Include="Assets\Scripts\Maze\Block_Test.cs" />
      <Compile Include="Assets\Scripts\Maze\Block_Test2.cs" />
      <Compile Include="Assets\Scripts\Maze\GameManager.cs" />

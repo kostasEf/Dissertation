@@ -11,7 +11,14 @@
  *  
  *  --------------------------------------------------------------------------------------------------------------
  *  
- *  Think of mini game ideas 
+ *  Think of mini game ideas:
+ *  1. Hole on the ground, ball falls inside a container, 
+ *     bend left or right to move the ball against the container and make it fall fall.
+ *     
+ *  2. Third person view where you turn camera by moving the device and to roll the ball you have to bend forward.
+ *  
+ *  3. Fall on a slide where obstacles come and in order to avoid them you need to bend left-right
+ *  
  *  Add a colider above the maze so the ball will not fall off.
  *  
  *  --------------------------------------------------------------------------------------------------------------
