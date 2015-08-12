@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Maze\Ball.cs" />
      <Compile Include="Assets\Scripts\Maze\Block_Test.cs" />
      <Compile Include="Assets\Scripts\Maze\Block_Test2.cs" />
      <Compile Include="Assets\Scripts\Maze\GameManager.cs" />
@@ -58,7 +59,6 @@
      <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
      <Compile Include="Assets\Scripts\Notes.cs" />
      <Compile Include="Assets\Scripts\Sensors\AccelerometerInput.cs" />
-     <Compile Include="Assets\Scripts\Sensors\Ball.cs" />
      <Compile Include="Assets\Scripts\Sensors\Follow.cs" />
      <Compile Include="Assets\Scripts\Sensors\Movement.cs" />
      <Compile Include="Assets\Scripts\Sensors\Tilt.cs" />

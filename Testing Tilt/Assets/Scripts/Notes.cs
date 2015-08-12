@@ -1,4 +1,6 @@
 ﻿/*
+ *  --------------------------------DONE------------------------------------------------------------------------------
+ *  
  *  DONE  Place more than one room in the maze.
  *  DONE  Fix empty cells issue(itterate through cells table, find null and create them)
  *  DONE  Instantiate Room at RandomRoomCoordinates.
@@ -8,20 +10,34 @@
  *  DONE  Fix Entry and Exit points.
  *  DONE  Fix the fucking camera angle
  *  DONE  Fix the fucking camera position (depending on maze size????)
+ *  DONE  SleepTimeout.NeverSleep
+ *  DONE  Instead of tilting the maze add force to the ball.
  *  
- *  --------------------------------------------------------------------------------------------------------------
+ * 
+ *  --------------------------------Room Ideas------------------------------------------------------------------------------
  *  
- *  Think of mini game ideas:
- *  1. Hole on the ground, ball falls inside a container, 
- *     bend left or right to move the ball against the container and make it fall fall.
- *     
- *  2. Third person view where you turn camera by moving the device and to roll the ball you have to bend forward.
+ *  Spiral Room
+ *  Left Right Left
+ *  Right Left Right
+ *  Up Down Up
+ *  Down Up Down
  *  
- *  3. Fall on a slide where obstacles come and in order to avoid them you need to bend left-right
+ *  ---------------------------------IMPORTANT-----------------------------------------------------------------------------
  *  
- *  Add a colider above the maze so the ball will not fall off.
+ *  FIX GYROSCOPE MOVEMENT DETECTION
  *  
- *  --------------------------------------------------------------------------------------------------------------
  *  
- *  Mporw na allaksw to speed sto Tilt alla apo 4 kai panw i mpala feugei apo to map
+ *  ---------------------------------Extras-----------------------------------------------------------------------------
+ *  
+ *  Meatball Texture.
+ *  Adventures of a meatball.
+ *  Kitchen scenery.
+ *  Taste Meter.
+ *  Forks, fire, as obstacles.
+ *  As you roll you lose meat.
+ *  
+ *  Add calibrate button.
+ *  Add HARD mode where camera is close to the ball so players can not see the whole maze.
+ *  Create function that counts number of walls on each cell. If three place an item.
+ * 
  */
