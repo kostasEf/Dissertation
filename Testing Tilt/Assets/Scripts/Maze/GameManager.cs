@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour {
         Destroy(mazeInstance.gameObject);
         Destroy(ballInstance.gameObject);
         BeginGame();
+        Debug.Log(size.x + " " + size.z);
     }
 
     private void CreatePlayer()
@@ -102,7 +103,7 @@ public class GameManager : MonoBehaviour {
             cubes -= 1;
         }
 
-        if (size.x > 10)
+        if (size.x > 12)
         {
             size.x -= 2;
             size.z -= 2;
@@ -118,7 +119,7 @@ public class GameManager : MonoBehaviour {
             spheres -= 1;
         }
 
-        if (size.x > 10)
+        if (size.x > 12)
         {
             size.x -= 2;
             size.z -= 2;

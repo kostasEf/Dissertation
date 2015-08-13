@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour {
 
     Rigidbody sphere;
 
-    private const int speed = 15;
+    private const int speed = 5;
 
     private Text text1, text2, text3;
 
@@ -54,19 +54,19 @@ public class Movement : MonoBehaviour {
         yfilter = Mathf.Abs(Yfilter().y);
         accel = Input.acceleration;
 
-        if (xfilter > 0.04 && accel.x > 0.4)
+        if (xfilter > 0.03 && accel.x > 0.3)
         {
-            sphere.AddForce(Mathf.Abs(accel.x) * speed, 0, 0);
-        }else if (xfilter > 0.04 && accel.x < -0.4)
+            sphere.AddForce((0.5f + Mathf.Abs(accel.x)) * speed, 0, 0);
+        }else if (xfilter > 0.03 && accel.x < -0.3)
         {
             sphere.AddForce(-Mathf.Abs(accel.x) * speed, 0, 0);
         }
 
-        if (yfilter > 0.1 && accel.y > -0.4)
+        if (yfilter > 0.05 && accel.y > -0.4)
         {
-            sphere.AddForce(0, 0, Mathf.Abs(accel.y) * speed);
+            sphere.AddForce(0, 0, (0.5f + Mathf.Abs(accel.y)) * speed);
         }
-        else if (yfilter > 0.1 && accel.y < -0.6)
+        else if (yfilter > 0.05 && accel.y < -0.8)
         {
             sphere.AddForce(0, 0, -Mathf.Abs(accel.y) * speed);
         }
@@ -80,8 +80,8 @@ public class Movement : MonoBehaviour {
 	}
 
     private Vector3 Xfilter()    {
-        if (Mathf.Abs(Input.gyro.userAcceleration.x) > 0.02 && Mathf.Abs(Input.gyro.userAcceleration.x) < 0.12
-            && Mathf.Abs(Input.gyro.userAcceleration.y) > 0.02 && Mathf.Abs(Input.gyro.userAcceleration.y) < 0.12)
+        if (Mathf.Abs(Input.gyro.userAcceleration.x) > 0.02 && Mathf.Abs(Input.gyro.userAcceleration.x) < 0.12)
+            //&& Mathf.Abs(Input.gyro.userAcceleration.y) > 0.03 && Mathf.Abs(Input.gyro.userAcceleration.y) < 0.12)
         {
             XdataQueue.Enqueue(Input.gyro.userAcceleration);
             XdataQueue.Dequeue();
@@ -102,7 +102,7 @@ public class Movement : MonoBehaviour {
 
     private Vector3 Yfilter()
     {
-        if (Mathf.Abs(Input.gyro.userAcceleration.y) > 0.04 && Mathf.Abs(Input.gyro.userAcceleration.y) < 0.22)
+        if (Mathf.Abs(Input.gyro.userAcceleration.y) > 0.03 && Mathf.Abs(Input.gyro.userAcceleration.y) < 0.22)
         {
             YdataQueue.Enqueue(Input.gyro.userAcceleration);
             YdataQueue.Dequeue();

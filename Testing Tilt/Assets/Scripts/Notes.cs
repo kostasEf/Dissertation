@@ -12,20 +12,17 @@
  *  DONE  Fix the fucking camera position (depending on maze size????)
  *  DONE  SleepTimeout.NeverSleep
  *  DONE  Instead of tilting the maze add force to the ball.
- *  
+ *  DONE  ROOM Content
  * 
  *  --------------------------------Room Ideas------------------------------------------------------------------------------
  *  
- *  Spiral Room
- *  Left Right Left
- *  Right Left Right
- *  Up Down Up
- *  Down Up Down
+ *  
  *  
  *  ---------------------------------IMPORTANT-----------------------------------------------------------------------------
  *  
  *  FIX GYROSCOPE MOVEMENT DETECTION
  *  
+ *  ROOM DOORS
  *  
  *  ---------------------------------Extras-----------------------------------------------------------------------------
  *  
@@ -39,5 +36,8 @@
  *  Add calibrate button.
  *  Add HARD mode where camera is close to the ball so players can not see the whole maze.
  *  Create function that counts number of walls on each cell. If three place an item.
+ *  
+ *  Spiral Room is the goal (An item in the midle). 
+ *  Entrance could have a door that opens when you visit all other rooms.
  * 
  */

@@ -46,6 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Block_DUD.cs" />
+     <Compile Include="Assets\Block_LRL.cs" />
+     <Compile Include="Assets\Block_RLR.cs" />
+     <Compile Include="Assets\Block_Spiral.cs" />
+     <Compile Include="Assets\Block_UDU.cs" />
      <Compile Include="Assets\Scripts\Maze\Ball.cs" />
      <Compile Include="Assets\Scripts\Maze\Block_Test.cs" />
      <Compile Include="Assets\Scripts\Maze\Block_Test2.cs" />
