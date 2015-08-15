@@ -42,7 +42,7 @@ public class Maze : MonoBehaviour {
             for (int j = position.z - 1; j <= position.z + 1; j++)
             {
                 CreateCell(new IntVector2(i, j));
-                cells[i, j].FullyInitialize();
+                cells[i, j].FullyInitializeEdges();
             }
         }
         
@@ -164,7 +164,7 @@ public class Maze : MonoBehaviour {
                 if (cells[i, j] == null)
                 {
                     CreateCell(new IntVector2(i, j));
-                    cells[i, j].FullyInitialize();
+                    cells[i, j].FullyInitializeEdges();
                 }
                     
                 
@@ -289,9 +289,10 @@ public class Maze : MonoBehaviour {
     {
         MazeWall wall = Instantiate(wallPrefab) as MazeWall;
         wall.Initialize(cell, otherCell, direction);
+
         if (otherCell != null)
         {
-            wall = Instantiate(wallPrefab) as MazeWall;
+            //wall = Instantiate(wallPrefab) as MazeWall;
             wall.Initialize(otherCell, cell, direction.GetOpposite());
         }
     }

@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
         Destroy(mazeInstance.gameObject);
         Destroy(ballInstance.gameObject);
         BeginGame();
-        Debug.Log(size.x + " " + size.z);
+        
     }
 
     private void CreatePlayer()

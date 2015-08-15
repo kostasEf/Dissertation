@@ -18,7 +18,7 @@ public class MazeCell : MonoBehaviour {
         return edges[(int)direction];
     }
 
-    public void FullyInitialize()
+    public void FullyInitializeEdges()
     {
         initializedEdgeCount = 4;
     }
