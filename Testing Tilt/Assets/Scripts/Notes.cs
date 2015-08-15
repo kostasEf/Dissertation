@@ -13,6 +13,7 @@
  *  DONE  SleepTimeout.NeverSleep
  *  DONE  Instead of tilting the maze add force to the ball.
  *  DONE  ROOM Content
+ *  DONE  ROOM DOORS
  * 
  *  --------------------------------Room Ideas------------------------------------------------------------------------------
  *  
@@ -22,8 +23,7 @@
  *  
  *  FIX GYROSCOPE MOVEMENT DETECTION
  *  
- *  ROOM DOORS
- *  
+ *  Improve wall placing (look neighbor and if it exists and it has a door then skip)
  *  ---------------------------------Extras-----------------------------------------------------------------------------
  *  
  *  Meatball Texture.

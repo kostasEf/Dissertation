@@ -20,15 +20,12 @@ public class Maze : MonoBehaviour {
 
     public MazeWall wallPrefab;
 
-    public Block_Test blockPrefab;
-    public Block_Test2 blockPrefab2;
     public Block_LRL blockLRL;
     public Block_RLR blockRLR;
     public Block_DUD blockDUD;
     public Block_UDU blockUDU;
     public Block_Spiral blockSpiral;
 
-    private IntVector2[] entryPoints = new[] { new IntVector2(-1, 0), new IntVector2(1, 0), new IntVector2(0, 1), new IntVector2(0, -1) };
 
 	// Use this for initialization
 	void Start () {}
@@ -49,41 +46,45 @@ public class Maze : MonoBehaviour {
             }
         }
         
-        //IntVector2 entryPoint = entryPoints[Random.Range(0, entryPoints.Length)];
-        //IntVector2 entryPoint2 = entryPoints[Random.Range(0, entryPoints.Length)];
-        //while (entryPoint == entryPoint2)
-        //{
-        //    entryPoint2.Assign(entryPoints[Random.Range(0, entryPoints.Length)]);
-        //}
 
-        //cells[position.x + entryPoint.x, position.z + entryPoint.z].isEntryPoint = true;
-
-        //cells[position.x + entryPoint2.x, position.z + entryPoint2.z].isEntryPoint = true;
-
-        if (roomType == 0)
+        if (roomType == 1)
         {
             Block_RLR block = Instantiate(blockRLR, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_RLR;
             block.transform.parent = transform;
+
+            cells[position.x - 1, position.z - 1].isEntryPoint = true;
+            cells[position.x + 1, position.z + 1].isEntryPoint = true;
         }
-        else if (roomType == 0)
+        else if (roomType == 2)
         {
             Block_LRL block = Instantiate(blockLRL, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_LRL;
             block.transform.parent = transform;
+
+            cells[position.x - 1, position.z + 1].isEntryPoint = true;
+            cells[position.x + 1, position.z - 1].isEntryPoint = true;
         }
-        else if (roomType == 0)
+        else if (roomType == 3)
         {
             Block_UDU block = Instantiate(blockUDU, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_UDU;
             block.transform.parent = transform;
+
+            cells[position.x - 1, position.z - 1].isEntryPoint = true;
+            cells[position.x + 1, position.z + 1].isEntryPoint = true;
         }
-        else if (roomType == 0)
+        else if (roomType == 4)
         {
             Block_DUD block = Instantiate(blockDUD, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_DUD;
             block.transform.parent = transform;
+
+            cells[position.x - 1, position.z + 1].isEntryPoint = true;
+            cells[position.x + 1, position.z - 1].isEntryPoint = true;
         }
-        else if (roomType == 1)
+        else if (roomType == 5)
         {
             Block_Spiral block = Instantiate(blockSpiral, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_Spiral;
             block.transform.parent = transform;
+
+            cells[position.x - 1, position.z - 1].isEntryPoint = true;
         }
         
         
@@ -132,12 +133,12 @@ public class Maze : MonoBehaviour {
 
         for (int i = 0; i < cubes; i++)
         {
-            InitializeRoom(RandomRoomCoordinates(), 1);
+            InitializeRoom(RandomRoomCoordinates(), 3);
         }
 
         for (int i = 0; i < spheres; i++)
         {
-            InitializeRoom(RandomRoomCoordinates(), 2);
+            InitializeRoom(RandomRoomCoordinates(), 5);
         }
 
        
