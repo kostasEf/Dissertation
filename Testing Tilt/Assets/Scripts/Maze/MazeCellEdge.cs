@@ -7,9 +7,12 @@ public abstract class MazeCellEdge : MonoBehaviour {
 
     public MazeDirection direction;
 
+    public bool isWall;
+
 	
-    public void Initialize(MazeCell cell, MazeCell otherCell, MazeDirection direction)
+    public void Initialize(MazeCell cell, MazeCell otherCell, MazeDirection direction, bool isWall)
     {
+        this.isWall = isWall;
         this.cell = cell;
         this.otherCell = otherCell;
         this.direction = direction;

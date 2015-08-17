@@ -10,6 +10,15 @@ public class Ball : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    
 	}
+
+    void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.name == "Cube")
+        {
+            collision.gameObject.SetActive(false);
+        }
+        
+    }
+
 }

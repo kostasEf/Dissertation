@@ -12,9 +12,9 @@ public class GameManager : MonoBehaviour {
 
     private Ball ballInstance;
 
-    public Text sizeX, sizeZ;
+    public Text numRLR, numLRL, numUDU, numDUD;
 
-    private int cubes = 1, spheres = 2;
+    private int LRL = 1, RLR = 1, UDU = 0, DUD = 0;
 
     private int cameraDistance = 0;
 
@@ -36,16 +36,20 @@ public class GameManager : MonoBehaviour {
             RestartGame();
         }
 
-        sizeX.text = "Cubes = " + cubes.ToString();
-        sizeZ.text = "Spheres = " + spheres.ToString();
+        numRLR.text = "RLR = " + RLR.ToString();
+        numLRL.text = "LRL = " + LRL.ToString();
+        numUDU.text = "UDU = " + UDU.ToString();
+        numDUD.text = "DUD = " + DUD.ToString();
 	}
 
     private void BeginGame() 
     {
         mazeInstance = Instantiate(mazePrefab) as Maze;
         mazeInstance.size = size;
-        mazeInstance.cubes = cubes;
-        mazeInstance.spheres = spheres;
+        mazeInstance.RLR = RLR;
+        mazeInstance.LRL = LRL;
+        mazeInstance.UDU = UDU;
+        mazeInstance.DUD = DUD;
 
         //StartCoroutine(mazeInstance.Generate());
         mazeInstance.Generate();
@@ -72,11 +76,11 @@ public class GameManager : MonoBehaviour {
         ballInstance = Instantiate(ballPrefab, startPosition, ballPrefab.transform.rotation) as Ball;
     }
 
-    public void plusCube()
+    public void plusLRL()
     {
-        cubes += 1;
+        LRL += 1;
 
-        if ( (cubes + spheres) > 3)
+        if ((LRL + RLR + UDU + DUD + 1) > 3)
         {
             size.x += 2;
             size.z += 2;
@@ -84,23 +88,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void plusSphere()
+    public void minusLRL()
     {
-        spheres += 1;
-
-        if ((cubes + spheres) > 3)
+        if (LRL > 0)
         {
-            size.x += 2;
-            size.z += 2;
-            cameraDistance += 2;
-        }
-    }
-
-    public void minusCube()
-    {
-        if (cubes > 0)
-        {
-            cubes -= 1;
+            LRL -= 1;
         }
 
         if (size.x > 12)
@@ -109,14 +101,81 @@ public class GameManager : MonoBehaviour {
             size.z -= 2;
             cameraDistance -= 2;
         }
-        
+
     }
 
-    public void minusSphere()
+    public void plusRLR()
     {
-        if (spheres > 0)
+        RLR += 1;
+
+        if ((LRL + RLR + UDU + DUD + 1) > 3)
         {
-            spheres -= 1;
+            size.x += 2;
+            size.z += 2;
+            cameraDistance += 2;
+        }
+    }
+
+    public void minusRLR()
+    {
+        if (RLR > 0)
+        {
+            RLR -= 1;
+        }
+
+        if (size.x > 12)
+        {
+            size.x -= 2;
+            size.z -= 2;
+            cameraDistance -= 2;
+        }
+    }
+
+    public void plusUDU()
+    {
+        UDU += 1;
+
+        if ((LRL + RLR + UDU + DUD + 1) > 3)
+        {
+            size.x += 2;
+            size.z += 2;
+            cameraDistance += 2;
+        }
+    }
+
+    public void minusUDU()
+    {
+        if (UDU > 0)
+        {
+            UDU -= 1;
+        }
+
+        if (size.x > 12)
+        {
+            size.x -= 2;
+            size.z -= 2;
+            cameraDistance -= 2;
+        }
+    }
+
+    public void plusDUD()
+    {
+        DUD += 1;
+
+        if ((LRL + RLR + UDU + DUD + 1) > 3)
+        {
+            size.x += 2;
+            size.z += 2;
+            cameraDistance += 2;
+        }
+    }
+
+
+    public void minusDUD()
+    {
+        if (DUD > 0)
+        {
+            DUD -= 1;
         }
 
         if (size.x > 12)

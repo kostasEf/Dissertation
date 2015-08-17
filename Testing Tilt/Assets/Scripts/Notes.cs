@@ -14,16 +14,17 @@
  *  DONE  Instead of tilting the maze add force to the ball.
  *  DONE  ROOM Content
  *  DONE  ROOM DOORS
+ *  DONE  Less Walls
  * 
  *  --------------------------------Room Ideas------------------------------------------------------------------------------
  *  
- *  ougk
+ *  
  *  
  *  ---------------------------------IMPORTANT-----------------------------------------------------------------------------
  *  
  *  FIX GYROSCOPE MOVEMENT DETECTION
  *  
- *  Improve wall placing (look neighbor and if it exists and it has a door then skip)
+ *  
  *  ---------------------------------Extras-----------------------------------------------------------------------------
  *  
  *  Meatball Texture.

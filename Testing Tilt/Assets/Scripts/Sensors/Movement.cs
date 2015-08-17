@@ -54,12 +54,12 @@ public class Movement : MonoBehaviour {
         yfilter = Mathf.Abs(Yfilter().y);
         accel = Input.acceleration;
 
-        if (xfilter > 0.03 && accel.x > 0.3)
+        if (xfilter > 0.05 && accel.x > 0.3)
         {
             sphere.AddForce((0.5f + Mathf.Abs(accel.x)) * speed, 0, 0);
-        }else if (xfilter > 0.03 && accel.x < -0.3)
+        }else if (xfilter > 0.05 && accel.x < -0.3)
         {
-            sphere.AddForce(-Mathf.Abs(accel.x) * speed, 0, 0);
+            sphere.AddForce(-0.5f - Mathf.Abs(accel.x) * speed, 0, 0);
         }
 
         if (yfilter > 0.05 && accel.y > -0.4)
@@ -80,7 +80,7 @@ public class Movement : MonoBehaviour {
 	}
 
     private Vector3 Xfilter()    {
-        if (Mathf.Abs(Input.gyro.userAcceleration.x) > 0.02 && Mathf.Abs(Input.gyro.userAcceleration.x) < 0.12)
+        if (Mathf.Abs(Input.gyro.userAcceleration.x) > 0.03 && Mathf.Abs(Input.gyro.userAcceleration.x) < 0.9)
             //&& Mathf.Abs(Input.gyro.userAcceleration.y) > 0.03 && Mathf.Abs(Input.gyro.userAcceleration.y) < 0.12)
         {
             XdataQueue.Enqueue(Input.gyro.userAcceleration);

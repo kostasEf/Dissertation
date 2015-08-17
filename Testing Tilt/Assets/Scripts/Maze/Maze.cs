@@ -8,9 +8,11 @@ public class Maze : MonoBehaviour {
 
     public GameObject CameraPosition;
 
-    public int cubes, spheres;
+    public int RLR, LRL, UDU, DUD;
 
     public MazeCell cellPrefab;
+
+    public PickUp pickUpPrefab;
 
     private MazeCell[,] cells;
 
@@ -43,6 +45,7 @@ public class Maze : MonoBehaviour {
             {
                 CreateCell(new IntVector2(i, j));
                 cells[i, j].FullyInitializeEdges();
+                cells[i, j].belongsToBlock = true;
             }
         }
         
@@ -131,18 +134,7 @@ public class Maze : MonoBehaviour {
     {
         cells = new MazeCell[size.x, size.z];
 
-        for (int i = 0; i < cubes; i++)
-        {
-            InitializeRoom(RandomRoomCoordinates(), 3);
-        }
-
-        for (int i = 0; i < spheres; i++)
-        {
-            InitializeRoom(RandomRoomCoordinates(), 5);
-        }
-
-       
-
+        PlaceRooms();
 
         List<MazeCell> activeCells = new List<MazeCell>();
         DoFirstGenerationStep(activeCells);
@@ -152,7 +144,49 @@ public class Maze : MonoBehaviour {
         }
 
         FindEmptyCells();
+        PlacePickUps();
 
+    }
+
+    private void PlacePickUps()
+    {
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.z; j++)
+            {
+                if (cells[i, j].IsDeadEnd() && cells[i, j].belongsToBlock == false)
+                {
+                    PickUp pickUp = Instantiate(pickUpPrefab, cells[i, j].transform.position, Quaternion.identity) as PickUp;
+                    pickUp.transform.parent = transform;
+                }
+            }
+        }
+
+    }
+
+    private void PlaceRooms()
+    {
+        for (int i = 0; i < RLR; i++)
+        {
+            InitializeRoom(RandomRoomCoordinates(), 1);
+        }
+
+        for (int i = 0; i < LRL; i++)
+        {
+            InitializeRoom(RandomRoomCoordinates(), 2);
+        }
+
+        for (int i = 0; i < UDU; i++)
+        {
+            InitializeRoom(RandomRoomCoordinates(), 3);
+        }
+
+        for (int i = 0; i < DUD; i++)
+        {
+            InitializeRoom(RandomRoomCoordinates(), 4);
+        }
+
+        InitializeRoom(RandomRoomCoordinates(), 5);
     }
 
     private void FindEmptyCells()
@@ -280,20 +314,20 @@ public class Maze : MonoBehaviour {
     private void CreatePassage(MazeCell cell, MazeCell otherCell, MazeDirection direction)
     {
         MazePassage passage = Instantiate(passagePrefab) as MazePassage;
-        passage.Initialize(cell, otherCell, direction);
+        passage.Initialize(cell, otherCell, direction, false);
         passage = Instantiate(passagePrefab) as MazePassage;
-        passage.Initialize(otherCell, cell, direction.GetOpposite());
+        passage.Initialize(otherCell, cell, direction.GetOpposite(), false);
     }
 
     private void CreateWall(MazeCell cell, MazeCell otherCell, MazeDirection direction)
     {
         MazeWall wall = Instantiate(wallPrefab) as MazeWall;
-        wall.Initialize(cell, otherCell, direction);
+        wall.Initialize(cell, otherCell, direction, true);
 
         if (otherCell != null)
         {
             //wall = Instantiate(wallPrefab) as MazeWall;
-            wall.Initialize(otherCell, cell, direction.GetOpposite());
+            wall.Initialize(otherCell, cell, direction.GetOpposite(), true);
         }
     }
 }

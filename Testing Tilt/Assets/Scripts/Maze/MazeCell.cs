@@ -23,6 +23,27 @@ public class MazeCell : MonoBehaviour {
         initializedEdgeCount = 4;
     }
 
+    public bool IsDeadEnd()
+    {
+        int count = 0;
+        for (int i = 0; i < MazeDirections.Count; i++)
+        {
+            if (edges[i] && edges[i].isWall)
+            {
+                count++;
+            }
+        }
+
+        if (count == 3)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public bool IsFullyInitialized
     {
         get
