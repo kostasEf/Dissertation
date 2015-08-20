@@ -15,14 +15,14 @@
  *  DONE  ROOM Content
  *  DONE  ROOM DOORS
  *  DONE  Less Walls
- * 
- *  --------------------------------Room Ideas------------------------------------------------------------------------------
+ *  DONE  Elegxei mesw tou Input.acceleration pros ta pou katefthinetai to device
  *  
  *  
  *  
  *  ---------------------------------IMPORTANT-----------------------------------------------------------------------------
  *  
  *  FIX GYROSCOPE MOVEMENT DETECTION
+ *  
  *  
  *  
  *  ---------------------------------Extras-----------------------------------------------------------------------------

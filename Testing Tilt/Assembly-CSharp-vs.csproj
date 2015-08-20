@@ -46,15 +46,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Block_DUD.cs" />
-     <Compile Include="Assets\Block_LRL.cs" />
-     <Compile Include="Assets\Block_RLR.cs" />
-     <Compile Include="Assets\Block_Spiral.cs" />
-     <Compile Include="Assets\Block_UDU.cs" />
-     <Compile Include="Assets\PickUp.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Block_DUD.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Block_LRL.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Block_RLR.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Block_Spiral.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Block_UDU.cs" />
      <Compile Include="Assets\Scripts\Maze\Ball.cs" />
-     <Compile Include="Assets\Scripts\Maze\Block_Test.cs" />
-     <Compile Include="Assets\Scripts\Maze\Block_Test2.cs" />
      <Compile Include="Assets\Scripts\Maze\GameManager.cs" />
      <Compile Include="Assets\Scripts\Maze\IntVector2.cs" />
      <Compile Include="Assets\Scripts\Maze\Maze.cs" />
@@ -63,13 +60,13 @@
      <Compile Include="Assets\Scripts\Maze\MazeDirection.cs" />
      <Compile Include="Assets\Scripts\Maze\MazePassage.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
+     <Compile Include="Assets\Scripts\Maze\PickUp.cs" />
      <Compile Include="Assets\Scripts\Notes.cs" />
      <Compile Include="Assets\Scripts\Sensors\AccelerometerInput.cs" />
      <Compile Include="Assets\Scripts\Sensors\Follow.cs" />
      <Compile Include="Assets\Scripts\Sensors\Movement.cs" />
      <Compile Include="Assets\Scripts\Sensors\Tilt.cs" />
      <Compile Include="Assets\Scripts\Sensors\gyroscope.cs" />
-     <Compile Include="Assets\Spin.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
