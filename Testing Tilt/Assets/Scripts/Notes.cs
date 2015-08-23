@@ -23,7 +23,7 @@
  *  
  *  FIX GYROSCOPE MOVEMENT DETECTION
  *  
- *  
+ *  Replace Queue with List(perhaps)
  *  
  *  ---------------------------------Extras-----------------------------------------------------------------------------
  *  
