@@ -36,61 +36,62 @@ public class Maze : MonoBehaviour {
      * First check all cells where the room is going to be placed to see 
      * if they are available, then create the cells and FullyInitialize them.   
     */
-    private void InitializeRoom(IntVector2 position, int roomType)
+    private void InitializeRoom(IntVector2 coordinates, int roomType)
     {
-
-        for (int i = position.x - 1; i <= position.x + 1; i++)
+        
+        for (int i = coordinates.x - 1; i <= coordinates.x + 1; i++)
         {
-            for (int j = position.z - 1; j <= position.z + 1; j++)
+            for (int j = coordinates.z - 1; j <= coordinates.z + 1; j++)
             {
                 CreateCell(new IntVector2(i, j));
                 cells[i, j].FullyInitializeEdges();
                 cells[i, j].belongsToBlock = true;
             }
         }
-        
 
+        Vector3 position = cells[coordinates.x, coordinates.z].transform.position;
+        
         if (roomType == 1)
         {
-            Block_RLR block = Instantiate(blockRLR, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_RLR;
+            Block_RLR block = Instantiate(blockRLR, position, Quaternion.identity) as Block_RLR;
             block.transform.parent = transform;
 
-            cells[position.x - 1, position.z - 1].isEntryPoint = true;
-            cells[position.x + 1, position.z + 1].isEntryPoint = true;
+            cells[coordinates.x - 1, coordinates.z - 1].isEntryPoint = true;
+            cells[coordinates.x + 1, coordinates.z + 1].isEntryPoint = true;
         }
         else if (roomType == 2)
         {
-            Block_LRL block = Instantiate(blockLRL, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_LRL;
+            Block_LRL block = Instantiate(blockLRL, position, Quaternion.identity) as Block_LRL;
             block.transform.parent = transform;
 
-            cells[position.x - 1, position.z + 1].isEntryPoint = true;
-            cells[position.x + 1, position.z - 1].isEntryPoint = true;
+            cells[coordinates.x - 1, coordinates.z + 1].isEntryPoint = true;
+            cells[coordinates.x + 1, coordinates.z - 1].isEntryPoint = true;
         }
         else if (roomType == 3)
         {
-            Block_UDU block = Instantiate(blockUDU, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_UDU;
+            Block_UDU block = Instantiate(blockUDU, position, Quaternion.identity) as Block_UDU;
             block.transform.parent = transform;
 
-            cells[position.x - 1, position.z - 1].isEntryPoint = true;
-            cells[position.x + 1, position.z + 1].isEntryPoint = true;
+            cells[coordinates.x - 1, coordinates.z - 1].isEntryPoint = true;
+            cells[coordinates.x + 1, coordinates.z + 1].isEntryPoint = true;
         }
         else if (roomType == 4)
         {
-            Block_DUD block = Instantiate(blockDUD, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_DUD;
+            Block_DUD block = Instantiate(blockDUD, position, Quaternion.identity) as Block_DUD;
             block.transform.parent = transform;
 
-            cells[position.x - 1, position.z + 1].isEntryPoint = true;
-            cells[position.x + 1, position.z - 1].isEntryPoint = true;
+            cells[coordinates.x - 1, coordinates.z + 1].isEntryPoint = true;
+            cells[coordinates.x + 1, coordinates.z - 1].isEntryPoint = true;
         }
         else if (roomType == 5)
         {
-            Block_Spiral block = Instantiate(blockSpiral, cells[position.x, position.z].transform.position, Quaternion.identity) as Block_Spiral;
+            Block_Spiral block = Instantiate(blockSpiral, position, Quaternion.identity) as Block_Spiral;
             block.transform.parent = transform;
 
-            cells[position.x - 1, position.z - 1].isEntryPoint = true;
+            cells[coordinates.x - 1, coordinates.z - 1].isEntryPoint = true;
         }
-        
-        
+
+        PlacePickUp(position);
         
 
     }
@@ -144,23 +145,15 @@ public class Maze : MonoBehaviour {
         }
 
         FindEmptyCells();
-        PlacePickUps();
+        
 
     }
 
-    private void PlacePickUps()
+    private void PlacePickUp(Vector3 position)
     {
-        for (int i = 0; i < size.x; i++)
-        {
-            for (int j = 0; j < size.z; j++)
-            {
-                if (cells[i, j].IsDeadEnd() && cells[i, j].belongsToBlock == false)
-                {
-                    PickUp pickUp = Instantiate(pickUpPrefab, cells[i, j].transform.position, Quaternion.identity) as PickUp;
-                    pickUp.transform.parent = transform;
-                }
-            }
-        }
+        
+        PickUp pickUp = Instantiate(pickUpPrefab, position, Quaternion.identity) as PickUp;
+        pickUp.transform.parent = transform;
 
     }
 

@@ -51,6 +51,9 @@
      <Compile Include="Assets\Scripts\Blocks\Block_RLR.cs" />
      <Compile Include="Assets\Scripts\Blocks\Block_Spiral.cs" />
      <Compile Include="Assets\Scripts\Blocks\Block_UDU.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Entrance.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Exit.cs" />
+     <Compile Include="Assets\Scripts\Blocks\Spiral.cs" />
      <Compile Include="Assets\Scripts\Maze\Ball.cs" />
      <Compile Include="Assets\Scripts\Maze\GameManager.cs" />
      <Compile Include="Assets\Scripts\Maze\IntVector2.cs" />
@@ -61,6 +64,7 @@
      <Compile Include="Assets\Scripts\Maze\MazePassage.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
      <Compile Include="Assets\Scripts\Maze\PickUp.cs" />
+     <Compile Include="Assets\Scripts\Maze\Timerz.cs" />
      <Compile Include="Assets\Scripts\Notes.cs" />
      <Compile Include="Assets\Scripts\Sensors\AccelerometerInput.cs" />
      <Compile Include="Assets\Scripts\Sensors\Follow.cs" />

@@ -86,13 +86,13 @@ public class Movement : MonoBehaviour {
         //text2.text = Orientation(AccelerationQueue, 'x').ToString("0.00");
         //text3.text = Orientation(AccelerationQueue, 'y').ToString("0.00");
 
-        //text1.text = Input.gyro.userAcceleration.x.ToString("0.00");
+        //text1.text = PlayerPrefs.GetInt("Testing").ToString();
         //text2.text = Input.gyro.userAcceleration.y.ToString("0.00");
         //text3.text = Input.gyro.userAcceleration.z.ToString("0.00");
 
         //text1.text = Zfilter().z.ToString("0.00");
         //text2.text = Yfilter().y.ToString("0.00");
-        text3.text = Zfilter().z.ToString("0.00");
+        //text3.text = Zfilter().z.ToString("0.00");
 
 
         //Camera.main.transform.rotation = Input.gyro.attitude;
@@ -100,8 +100,33 @@ public class Movement : MonoBehaviour {
         //Vector3 ea = Input.gyro.attitude.eulerAngles;
 
         //Camera.main.transform.eulerAngles = new Vector3(-ea[0], -ea[1], ea[2]);
+
+        ManualControls();
         
 	}
+
+    private void ManualControls()
+    {
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            sphere.AddForce(0, 0, 25);
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            sphere.AddForce(-25, 0, 0);
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            sphere.AddForce(0, 0, -25);
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            sphere.AddForce(25, 0, 0);
+        }
+    }
 
     private int Orientation(Queue<Vector3> list, char axis)
     {

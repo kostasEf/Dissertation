@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Ball : MonoBehaviour {
 
+    private GameManager GameManager;
+
 	// Use this for initialization
 	void Start () {
-	
+	GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -17,6 +19,7 @@ public class Ball : MonoBehaviour {
         if(collision.gameObject.name == "Cube")
         {
             collision.gameObject.SetActive(false);
+            GameManager.itemsPickedUp++;
         }
         
     }

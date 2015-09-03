@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour {
 
     public Text numRLR, numLRL, numUDU, numDUD;
 
-    private int LRL = 1, RLR = 1, UDU = 0, DUD = 0;
+    private int LRL = 0, RLR = 0, UDU = 2, DUD = 0;
+
+    public int totalRoomNumber, itemsPickedUp = 0;
 
     private int cameraDistance = 0;
 
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour {
 	void Start () 
     {
         BeginGame();
+        
 	}
 	
 	// Update is called once per frame
@@ -40,6 +43,9 @@ public class GameManager : MonoBehaviour {
         numLRL.text = "LRL = " + LRL.ToString();
         numUDU.text = "UDU = " + UDU.ToString();
         numDUD.text = "DUD = " + DUD.ToString();
+
+        Debug.Log(itemsPickedUp);
+        
 	}
 
     private void BeginGame() 
@@ -50,6 +56,8 @@ public class GameManager : MonoBehaviour {
         mazeInstance.LRL = LRL;
         mazeInstance.UDU = UDU;
         mazeInstance.DUD = DUD;
+
+        totalRoomNumber = RLR + LRL + UDU + DUD;
 
         //StartCoroutine(mazeInstance.Generate());
         mazeInstance.Generate();
@@ -67,6 +75,7 @@ public class GameManager : MonoBehaviour {
         Destroy(mazeInstance.gameObject);
         Destroy(ballInstance.gameObject);
         BeginGame();
+        PlayerPrefs.SetInt("Testing", PlayerPrefs.GetInt("Testing") + 5);
         
     }
 
@@ -169,7 +178,6 @@ public class GameManager : MonoBehaviour {
             cameraDistance += 2;
         }
     }
-
 
     public void minusDUD()
     {
