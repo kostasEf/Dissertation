@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+	    GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -15,11 +15,11 @@ public class Ball : MonoBehaviour {
 	    
 	}
 
-    void OnCollisionEnter(Collision collision) {
+    void OnTriggerEnter(Collider collision) {
         if(collision.gameObject.name == "Cube")
         {
             collision.gameObject.SetActive(false);
-            GameManager.itemsPickedUp++;
+            GameManager.pickUpsCollected++;
         }
         
     }

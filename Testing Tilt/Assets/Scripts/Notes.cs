@@ -16,31 +16,36 @@
  *  DONE  ROOM DOORS
  *  DONE  Less Walls
  *  DONE  Elegxei mesw tou Input.acceleration pros ta pou katefthinetai to device
- *  
- *  
- *  
+ *  DONE  Create function that counts number of walls on each cell. If three place an item.
+ *  DONE  Spiral Room is the goal (An item in the midle).   
+ *  DONE  Entrance could have a door that opens when you visit all other rooms.
+ *  DONE  Menu
  *  ---------------------------------IMPORTANT-----------------------------------------------------------------------------
  *  
  *  FIX GYROSCOPE MOVEMENT DETECTION
  *  
  *  Replace Queue with List(perhaps)
  *  
+ *  ---------------------------------Menu-----------------------------------------------------------------------------
+ *  
+ *  Maze but instead of Rooms it has Options, Play etc
+ * 
  *  ---------------------------------Extras-----------------------------------------------------------------------------
  *  
- *  Meatball Texture.
- *  Adventures of a meatball.
- *  Kitchen scenery.
- *  Taste Meter.
- *  Forks, fire, as obstacles.
- *  As you roll you lose meat.
  *  
  *  Add calibrate button.
+ *  
  *  Add HARD mode where camera is close to the ball so players can not see the whole maze.
- *  Create function that counts number of walls on each cell. If three place an item.
+ *                      +
+ *  Add INSANE mode where everything is dark and there is only light around the ball
  *  
- *  Spiral Room is the goal (An item in the midle). 
- *  Entrance could have a door that opens when you visit all other rooms.
+ *  Add Color Palet
  *  
+ *  Add trail to ball
+ *  
+ *  Particles and score when collecting pickups
+ *  
+ *  PlayerPrefs
  * 
  * 
  */

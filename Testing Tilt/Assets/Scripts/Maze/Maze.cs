@@ -4,33 +4,39 @@ using System.Collections.Generic;
 
 public class Maze : MonoBehaviour {
 
-    public IntVector2 size;
-
-    public GameObject CameraPosition;
-
-    public int RLR, LRL, UDU, DUD;
-
-    public MazeCell cellPrefab;
-
-    public PickUp pickUpPrefab;
-
+    //------Maze Related------//
     private MazeCell[,] cells;
-
+    public MazeCell cellPrefab;
+    public MazePassage passagePrefab;
+    public MazeWall wallPrefab;
+    public IntVector2 size;
+    public PickUp pickUpPrefab;
     public float generationStepDelay;
 
-    public MazePassage passagePrefab;
 
-    public MazeWall wallPrefab;
-
+    //------Block Related------//
     public Block_LRL blockLRL;
     public Block_RLR blockRLR;
     public Block_DUD blockDUD;
     public Block_UDU blockUDU;
     public Block_Spiral blockSpiral;
+    public int RLR, LRL, UDU, DUD;
+    public Play blockPlay;
+    public Mode blockMode;
+    public Controls blockControls;
+    public Normal blockNormal;
+    public Hard blockHard;
+    public Insane blockInsane;
+    public Rehab blockRehab;
 
+    //------Not Related------//
+    public GameObject cameraPosition;
+    public int menuState = 0; // 0 = Start Screen/ 1 = Mode Selection/ 2 = Controls Selection/ 3 = Hide Menu
+
+    
 
 	// Use this for initialization
-	void Start () {}
+    void Start() {  }
 
     /*
      * First check all cells where the room is going to be placed to see 
@@ -106,31 +112,6 @@ public class Maze : MonoBehaviour {
         return cells[coordinates.x, coordinates.z];
     }
 
-    //public IEnumerator Generate()
-    //{
-    //    WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
-    //    cells = new MazeCell[size.x, size.z];
-
-    //    //Block_Test block = Instantiate(blockPrefab) as Block_Test;
-    //    bool roomIsPlaced = false;
-
-    //    while (roomIsPlaced == false)
-    //    {
-    //        roomIsPlaced = InitializeRoom(RandomCoordinates());
-    //        //roomIsPlaced = InitializeRoom(new IntVector2(2,2));
-    //    }
-        
-
-        
-    //    List<MazeCell> activeCells = new List<MazeCell>();
-    //    DoFirstGenerationStep(activeCells);
-    //    while (activeCells.Count > 0)
-    //    {
-    //        yield return delay;
-    //        DoNextGenerationStep(activeCells);
-    //    }
-    //}
-
     public void Generate()
     {
         cells = new MazeCell[size.x, size.z];
@@ -145,16 +126,122 @@ public class Maze : MonoBehaviour {
         }
 
         FindEmptyCells();
+
+        PlaceRandomPickUps();
+
+    }
+
+    private void PlaceRandomPickUps()
+    {
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.z; j++)
+            {
+                if (cells[i, j].IsDeadEnd() && cells[i, j].belongsToBlock == false)
+                {
+                    if (Random.Range(0, 2) == 1)
+                    {
+                        PickUp pickUp = Instantiate(pickUpPrefab, cells[i, j].transform.position, Quaternion.identity) as PickUp;
+                        pickUp.transform.parent = transform;
+                        //gameManager.extraPickUps++;
+                    }
+                }
+            }
+        }
+    }
+
+    public IEnumerator GenerateStepByStep()
+    {
+        WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
+        cells = new MazeCell[size.x, size.z];
+        CreateMenuRooms();
+        List<MazeCell> activeCells = new List<MazeCell>();
+        DoFirstGenerationStep(activeCells);
+        while (activeCells.Count > 0)
+        {
+            yield return delay;
+            DoNextGenerationStep(activeCells);
+        }
+        FindEmptyCells();
+    }
+
+    private void CreateMenuRooms()
+    {
+        int x = 4;
+        int y = 2;
+
+        for (int i = 11 - x; i <= 11 + x; i++)
+        {
+            for (int j = 15 - y; j <= 15 + y; j++)
+            {
+                CreateCell(new IntVector2(i, j));
+                cells[i, j].FullyInitializeEdges();
+                cells[i, j].belongsToBlock = true;
+            }
+        }
+
+        for (int i = 11 - x; i <= 11 + x; i++)
+        {
+            for (int j = 9 - y; j <= 9 + y; j++)
+            {
+                CreateCell(new IntVector2(i, j));
+                cells[i, j].FullyInitializeEdges();
+                cells[i, j].belongsToBlock = true;
+            }
+        }
+
+        for (int i = 11 - x; i <= 11 + x; i++)
+        {
+            for (int j = 3 - y; j <= 3 + y; j++)
+            {
+                CreateCell(new IntVector2(i, j));
+                cells[i, j].FullyInitializeEdges();
+                cells[i, j].belongsToBlock = true;
+            }
+        }
+
+
+        if (menuState == 0)
+        {
+            Play block = Instantiate(blockPlay, cells[11, 15].transform.position, Quaternion.identity) as Play;
+            block.transform.parent = transform;
+
+            Mode block2 = Instantiate(blockMode, cells[11, 9].transform.position, Quaternion.identity) as Mode;
+            block2.transform.parent = transform;
+
+            Controls block3 = Instantiate(blockControls, cells[11, 3].transform.position, Quaternion.identity) as Controls;
+            block3.transform.parent = transform;
+        }
+        if (menuState == 1)
+        {
+            Normal block = Instantiate(blockNormal, cells[11, 15].transform.position, Quaternion.identity) as Normal;
+            block.transform.parent = transform;
+
+            Hard block2 = Instantiate(blockHard, cells[11, 9].transform.position, Quaternion.identity) as Hard;
+            block2.transform.parent = transform;
+
+            Insane block3 = Instantiate(blockInsane, cells[11, 3].transform.position, Quaternion.identity) as Insane;
+            block3.transform.parent = transform;
+        }
+        if (menuState == 2)
+        {
+            Normal block = Instantiate(blockNormal, cells[11, 15].transform.position, Quaternion.identity) as Normal;
+            block.transform.parent = transform;
+
+            Rehab block2 = Instantiate(blockRehab, cells[11, 9].transform.position, Quaternion.identity) as Rehab;
+            block2.transform.parent = transform;                        
+        }
+
+
+
         
 
     }
 
     private void PlacePickUp(Vector3 position)
     {
-        
         PickUp pickUp = Instantiate(pickUpPrefab, position, Quaternion.identity) as PickUp;
         pickUp.transform.parent = transform;
-
     }
 
     private void PlaceRooms()
@@ -193,8 +280,6 @@ public class Maze : MonoBehaviour {
                     CreateCell(new IntVector2(i, j));
                     cells[i, j].FullyInitializeEdges();
                 }
-                    
-                
             }
         }
 

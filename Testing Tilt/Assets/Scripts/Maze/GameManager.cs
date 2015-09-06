@@ -16,13 +16,15 @@ public class GameManager : MonoBehaviour {
 
     private int LRL = 0, RLR = 0, UDU = 2, DUD = 0;
 
-    public int totalRoomNumber, itemsPickedUp = 0;
+    public int pickUps = 0, pickUpsCollected = 0;
 
     private int cameraDistance = 0;
 
     private IntVector2 size = new IntVector2(12,12);
 
+    public int menuState = 0; // 0 = Start Screen/ 1 = Mode Selection/ 2 = Controls Selection/ 3 = Hide Menu
 
+    
 
 	// Use this for initialization
 	void Start () 
@@ -44,38 +46,48 @@ public class GameManager : MonoBehaviour {
         numUDU.text = "UDU = " + UDU.ToString();
         numDUD.text = "DUD = " + DUD.ToString();
 
-        Debug.Log(itemsPickedUp);
-        
 	}
 
     private void BeginGame() 
     {
-        mazeInstance = Instantiate(mazePrefab) as Maze;
-        mazeInstance.size = size;
-        mazeInstance.RLR = RLR;
-        mazeInstance.LRL = LRL;
-        mazeInstance.UDU = UDU;
-        mazeInstance.DUD = DUD;
+        if (menuState == 3)
+        {
+            mazeInstance = Instantiate(mazePrefab) as Maze;
+            mazeInstance.size = size;
+            mazeInstance.RLR = RLR;
+            mazeInstance.LRL = LRL;
+            mazeInstance.UDU = UDU;
+            mazeInstance.DUD = DUD;
+            mazeInstance.Generate();
+            Camera.main.transform.position = mazeInstance.cameraPosition.transform.position + new Vector3(0, cameraDistance, 0);
+            Camera.main.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+            Camera.main.transform.parent = mazeInstance.cameraPosition.transform;
+            CreatePlayer();
+        }
+        else
+        {
+            mazeInstance = Instantiate(mazePrefab) as Maze;
+            mazeInstance.menuState = menuState;
+            mazeInstance.size = new IntVector2(23, 19);
+            StartCoroutine(mazeInstance.GenerateStepByStep());
+        }
 
-        totalRoomNumber = RLR + LRL + UDU + DUD;
 
-        //StartCoroutine(mazeInstance.Generate());
-        mazeInstance.Generate();
-        Camera.main.transform.position = mazeInstance.CameraPosition.transform.position + new Vector3(0, cameraDistance, 0);
-        Camera.main.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
-        Camera.main.transform.parent = mazeInstance.CameraPosition.transform;
-        CreatePlayer();
-        
     }
 
     public void RestartGame() 
     {
-        //StopAllCoroutines();
+        
         Camera.main.transform.parent = null;
+        if(ballInstance)
+        {
+            Destroy(ballInstance.gameObject);
+        }
+        StopAllCoroutines();
+        pickUps = 0;
+        
         Destroy(mazeInstance.gameObject);
-        Destroy(ballInstance.gameObject);
         BeginGame();
-        PlayerPrefs.SetInt("Testing", PlayerPrefs.GetInt("Testing") + 5);
         
     }
 

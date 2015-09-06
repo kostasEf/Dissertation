@@ -19,7 +19,7 @@ public class Spiral : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.itemsPickedUp == GameManager.totalRoomNumber)
+        if (GameManager.pickUpsCollected == GameManager.pickUps - 1)
         {
             move = true;
             destination = transform.position - new Vector3(0, 1.5f, 0);

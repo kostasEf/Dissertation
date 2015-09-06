@@ -61,24 +61,24 @@ public class Movement : MonoBehaviour {
         zfilter = Mathf.Abs(Zfilter().z);
         accel = Input.acceleration;
 
-        if (Xfilter().x > 0.15 && Orientation(AccelerationQueue, 'x') == 1)
-        {
-            sphere.AddForce(25, 0, 0);
-        }
-        else if (Xfilter().x < -0.15 && Orientation(AccelerationQueue, 'x') == -1)
-        {
-            sphere.AddForce(-25, 0, 0);
-        }
+        //if (Xfilter().x > 0.15 && Orientation(AccelerationQueue, 'x') == 1)
+        //{
+        //    sphere.AddForce(25, 0, 0);
+        //}
+        //else if (Xfilter().x < -0.15 && Orientation(AccelerationQueue, 'x') == -1)
+        //{
+        //    sphere.AddForce(-25, 0, 0);
+        //}
 
 
-        if (Zfilter().z > -0.25 && Zfilter().z < -0.15 && Orientation(AccelerationQueue, 'y') == 1) // Bend Forward
-        {
-            sphere.AddForce(0, 0, 25);
-        }
-        else if (Zfilter().z < 0.25 && Zfilter().z > 0.18 && Orientation(AccelerationQueue, 'y') == -1) // Bend Backwards
-        {
-            sphere.AddForce(0, 0, -25);
-        }
+        //if (Zfilter().z > -0.25 && Zfilter().z < -0.15 && Orientation(AccelerationQueue, 'y') == 1) // Bend Forward
+        //{
+        //    sphere.AddForce(0, 0, 25);
+        //}
+        //else if (Zfilter().z < 0.25 && Zfilter().z > 0.18 && Orientation(AccelerationQueue, 'y') == -1) // Bend Backwards
+        //{
+        //    sphere.AddForce(0, 0, -25);
+        //}
 
         
 
@@ -86,7 +86,8 @@ public class Movement : MonoBehaviour {
         //text2.text = Orientation(AccelerationQueue, 'x').ToString("0.00");
         //text3.text = Orientation(AccelerationQueue, 'y').ToString("0.00");
 
-        //text1.text = PlayerPrefs.GetInt("Testing").ToString();
+        float aspect = (float)Screen.width / (float)Screen.height;
+        text2.text = aspect.ToString();
         //text2.text = Input.gyro.userAcceleration.y.ToString("0.00");
         //text3.text = Input.gyro.userAcceleration.z.ToString("0.00");
 
@@ -102,8 +103,14 @@ public class Movement : MonoBehaviour {
         //Camera.main.transform.eulerAngles = new Vector3(-ea[0], -ea[1], ea[2]);
 
         ManualControls();
+        TiltControls();
         
 	}
+
+    private void TiltControls()
+    {
+        sphere.AddForce(accel.x * 10, 0, (accel.y + 0.2f) * 10);
+    }
 
     private void ManualControls()
     {
