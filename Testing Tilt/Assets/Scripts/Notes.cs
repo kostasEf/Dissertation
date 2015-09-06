@@ -42,7 +42,11 @@
  *  
  *  Particles and score when collecting pickups
  *  
+ *  Add Score
  *  
+ *  Add Pause Button(Return to menu);
+ *  
+ * Occlusion Culling
  * 
  * 
  */

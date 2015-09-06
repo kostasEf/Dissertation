@@ -39,9 +39,9 @@ public class Movement : MonoBehaviour {
         sphere = GetComponent<Rigidbody>();
 
         Input.gyro.enabled = true;
-        text1 = GameObject.Find("Text1").GetComponent<Text>();
-        text2 = GameObject.Find("Text2").GetComponent<Text>();
-        text3 = GameObject.Find("Text3").GetComponent<Text>();
+        //text1 = GameObject.Find("Text1").GetComponent<Text>();
+        //text2 = GameObject.Find("Text2").GetComponent<Text>();
+        //text3 = GameObject.Find("Text3").GetComponent<Text>();
 
         for (int i = 0; i < sampleSize; i++)
         {

@@ -10,12 +10,12 @@ public class Timerz : MonoBehaviour {
 
     void Start()
     {
-        text1 = GameObject.Find("Text1").GetComponent<Text>();
+        //text1 = GameObject.Find("Text1").GetComponent<Text>();
     }
 
     void Update()
     {
-        text1.text = seconds.ToString("0");
+        //text1.text = seconds.ToString("0");
 
         seconds += Time.deltaTime;
     }

@@ -57,11 +57,6 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-	    if(Input.GetKeyDown(KeyCode.Space))
-        {
-            menuState = 0;
-            RestartGame();
-        }
 
         numRLR.text = "RLR = " + RLR.ToString();
         numLRL.text = "LRL = " + LRL.ToString();
@@ -92,7 +87,7 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(mazeInstance.GenerateStepByStep());
         }
 
-        cameraManager.AdjustCameraPosition();
+        
        
     }
 
@@ -109,7 +104,14 @@ public class GameManager : MonoBehaviour {
         
         Destroy(mazeInstance.gameObject);
         BeginGame();
+        cameraManager.AdjustCameraPosition();
         
+    }
+
+    public void BackToMainMenu()
+    {
+        menuState = 0;
+        RestartGame();
     }
 
     private void CreatePlayer()

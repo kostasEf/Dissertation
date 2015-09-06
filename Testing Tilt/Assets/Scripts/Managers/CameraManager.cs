@@ -8,41 +8,41 @@ public class CameraManager : MonoBehaviour {
     public Color cameraBackGroundColor;
 
     //------Not Related------//
-    private GameManager GameManager;
+    private GameManager gameManager;
     public Light spotLight;
 
     // Use this for initialization
     void Start()
     {
-        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
     {
-        if ((GameManager.mode == 1 || GameManager.mode == 2) && GameManager.ballInstance)
+        if ((gameManager.mode == 1 || gameManager.mode == 2) && gameManager.menuState == 3)
         {
-            transform.position = GameManager.ballInstance.transform.position + new Vector3(0, 10, 0);
+            transform.position = gameManager.ballInstance.transform.position + new Vector3(0, 10, 0);
             transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
-            transform.parent = GameManager.mazeInstance.cameraNomralPosition;
-        }      
+            transform.parent = gameManager.mazeInstance.cameraNomralPosition;
+        }
     }
 
     public void AdjustCameraPosition()
     {
-        if (GameManager.menuState != 3)
+        if (gameManager.menuState != 3)
         {
             transform.position = cameraMenuPosition.position;
             transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
         }
-        else if (GameManager.mode == 0 && GameManager.ballInstance)
+        else if (gameManager.mode == 0 && gameManager.menuState == 3)
         {
-            transform.position = GameManager.mazeInstance.cameraNomralPosition.transform.position +
-                new Vector3(0, GameManager.cameraDistance, 0);
+            transform.position = gameManager.mazeInstance.cameraNomralPosition.transform.position +
+                new Vector3(0, gameManager.cameraDistance, 0);
             transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
-            transform.parent = GameManager.mazeInstance.cameraNomralPosition;
+            transform.parent = gameManager.mazeInstance.cameraNomralPosition;
         }
 
-        if (GameManager.mode == 2 && GameManager.menuState == 3)
+        if (gameManager.mode == 2 && gameManager.menuState == 3)
         {
             TurnOffLight();
         }
@@ -53,7 +53,7 @@ public class CameraManager : MonoBehaviour {
     }
 
     public void TurnOffLight()    {
-        GameManager.light.intensity = 0;
+        gameManager.light.intensity = 0;
         RenderSettings.ambientIntensity = 0;
         RenderSettings.reflectionIntensity = 0;
         RenderSettings.reflectionBounces = 2;
@@ -64,7 +64,7 @@ public class CameraManager : MonoBehaviour {
 
     public void TurnOnLight()
     {
-        GameManager.light.intensity = 1;
+        gameManager.light.intensity = 1;
         RenderSettings.ambientIntensity = 1;
         RenderSettings.reflectionIntensity = 1;
         Camera.main.backgroundColor = cameraBackGroundColor;
