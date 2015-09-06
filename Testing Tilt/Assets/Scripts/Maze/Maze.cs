@@ -10,7 +10,6 @@ public class Maze : MonoBehaviour {
     public MazePassage passagePrefab;
     public MazeWall wallPrefab;
     public IntVector2 size;
-    public PickUp pickUpPrefab;
     public float generationStepDelay;
 
 
@@ -30,8 +29,9 @@ public class Maze : MonoBehaviour {
     public Rehab blockRehab;
 
     //------Not Related------//
-    public GameObject cameraPosition;
-    public int menuState = 0; // 0 = Start Screen/ 1 = Mode Selection/ 2 = Controls Selection/ 3 = Hide Menu
+    public Transform cameraNomralPosition;
+    public PickUp pickUpPrefab;
+    public short menuState = 0; // 0 = Start Screen/ 1 = Mode Selection/ 2 = Controls Selection/ 3 = Hide Menu(In Game)
 
     
 
@@ -190,15 +190,19 @@ public class Maze : MonoBehaviour {
             }
         }
 
-        for (int i = 11 - x; i <= 11 + x; i++)
+        if (menuState == 0 || menuState == 1)
         {
-            for (int j = 3 - y; j <= 3 + y; j++)
+            for (int i = 11 - x; i <= 11 + x; i++)
             {
-                CreateCell(new IntVector2(i, j));
-                cells[i, j].FullyInitializeEdges();
-                cells[i, j].belongsToBlock = true;
+                for (int j = 3 - y; j <= 3 + y; j++)
+                {
+                    CreateCell(new IntVector2(i, j));
+                    cells[i, j].FullyInitializeEdges();
+                    cells[i, j].belongsToBlock = true;
+                }
             }
         }
+        
 
 
         if (menuState == 0)

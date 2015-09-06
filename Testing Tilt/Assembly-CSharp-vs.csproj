@@ -62,8 +62,10 @@
      <Compile Include="Assets\Scripts\Blocks\Rehab.cs" />
      <Compile Include="Assets\Scripts\Blocks\Spiral.cs" />
      <Compile Include="Assets\Scripts\ButtonScript.cs" />
+     <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\MenuManager.cs" />
      <Compile Include="Assets\Scripts\Maze\Ball.cs" />
-     <Compile Include="Assets\Scripts\Maze\GameManager.cs" />
      <Compile Include="Assets\Scripts\Maze\IntVector2.cs" />
      <Compile Include="Assets\Scripts\Maze\Maze.cs" />
      <Compile Include="Assets\Scripts\Maze\MazeCell.cs" />
@@ -73,7 +75,6 @@
      <Compile Include="Assets\Scripts\Maze\MazeWall.cs" />
      <Compile Include="Assets\Scripts\Maze\PickUp.cs" />
      <Compile Include="Assets\Scripts\Maze\Timerz.cs" />
-     <Compile Include="Assets\Scripts\MenuManager.cs" />
      <Compile Include="Assets\Scripts\Notes.cs" />
      <Compile Include="Assets\Scripts\Sensors\Movement.cs" />
  <Reference Include="UnityEngine.UI">

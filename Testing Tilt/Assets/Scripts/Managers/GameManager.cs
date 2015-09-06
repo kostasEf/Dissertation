@@ -4,33 +4,54 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+    //------Maze Related------//
     public Maze mazePrefab;
-
-    private Maze mazeInstance;
-
-    public Ball ballPrefab;
-
-    private Ball ballInstance;
-
+    public Maze mazeInstance;
     public Text numRLR, numLRL, numUDU, numDUD;
+    private short LRL = 0, RLR = 0, UDU = 2, DUD = 0;
+    private IntVector2 size = new IntVector2(12, 12);
 
-    private int LRL = 0, RLR = 0, UDU = 2, DUD = 0;
-
-    public int pickUps = 0, pickUpsCollected = 0;
-
-    private int cameraDistance = 0;
-
-    private IntVector2 size = new IntVector2(12,12);
-
-    public int menuState = 0; // 0 = Start Screen/ 1 = Mode Selection/ 2 = Controls Selection/ 3 = Hide Menu
-
+    //------Ball Related------//
+    public Ball ballPrefab;
+    public Ball ballInstance;
     
+    //------Menu Related------//
+    public short menuState = 0; // 0 = Start Screen/ 1 = Mode Selection/ 2 = Controls Selection/ 3 = Hide Menu(In Game)
+    public short mode; // 0 = normal/ 1 = hard/ 2 = insane
+    public short controls; // 0 = tilt/ 1 = rehab
+
+    //------Not Related------//
+    public short pickUps = 0, pickUpsCollected = 0;
+    private CameraManager cameraManager;
+    public short cameraDistance = 0;
+    public Light light;
 
 	// Use this for initialization
 	void Start () 
     {
-        BeginGame();
+
+        cameraManager = GameObject.Find("Main Camera").GetComponent<CameraManager>();
+
+        if (PlayerPrefs.HasKey("Mode"))
+        {
+            mode = (short)PlayerPrefs.GetInt("Mode");
+        }
+        else
+        {
+            mode = 0;
+        }
+
+        if (PlayerPrefs.HasKey("Controls"))
+        {
+            controls = (short)PlayerPrefs.GetInt("Controls");
+        }
+        else
+        {
+            controls = 0;
+        }
         
+        
+        BeginGame();
 	}
 	
 	// Update is called once per frame
@@ -38,6 +59,7 @@ public class GameManager : MonoBehaviour {
     {
 	    if(Input.GetKeyDown(KeyCode.Space))
         {
+            menuState = 0;
             RestartGame();
         }
 
@@ -50,29 +72,28 @@ public class GameManager : MonoBehaviour {
 
     private void BeginGame() 
     {
+        mazeInstance = Instantiate(mazePrefab) as Maze;
+
         if (menuState == 3)
         {
-            mazeInstance = Instantiate(mazePrefab) as Maze;
             mazeInstance.size = size;
             mazeInstance.RLR = RLR;
             mazeInstance.LRL = LRL;
             mazeInstance.UDU = UDU;
             mazeInstance.DUD = DUD;
             mazeInstance.Generate();
-            Camera.main.transform.position = mazeInstance.cameraPosition.transform.position + new Vector3(0, cameraDistance, 0);
-            Camera.main.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
-            Camera.main.transform.parent = mazeInstance.cameraPosition.transform;
             CreatePlayer();
+            ballInstance.GetComponent<Movement>().controls = controls;
         }
         else
         {
-            mazeInstance = Instantiate(mazePrefab) as Maze;
             mazeInstance.menuState = menuState;
             mazeInstance.size = new IntVector2(23, 19);
             StartCoroutine(mazeInstance.GenerateStepByStep());
         }
 
-
+        cameraManager.AdjustCameraPosition();
+       
     }
 
     public void RestartGame() 

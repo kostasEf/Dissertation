@@ -84,6 +84,8 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void normal() {
+        PlayerPrefs.SetInt("Mode", 0);
+        GameManager.mode = 0;
         GameManager.menuState = 0;
         normalButton.SetActive(false);
         hardButton.SetActive(false);
@@ -92,6 +94,8 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void hard() {
+        PlayerPrefs.SetInt("Mode", 1); 
+        GameManager.mode = 1;
         GameManager.menuState = 0;
         normalButton.SetActive(false);
         hardButton.SetActive(false);
@@ -100,6 +104,8 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void insane() {
+        PlayerPrefs.SetInt("Mode", 2); 
+        GameManager.mode = 2;
         GameManager.menuState = 0;
         normalButton.SetActive(false);
         hardButton.SetActive(false);
@@ -108,6 +114,8 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void tilt() {
+        PlayerPrefs.SetInt("Controls", 0);
+        GameManager.controls = 0;
         GameManager.menuState = 0;
         tiltButton.SetActive(false);
         rehabButton.SetActive(false);
@@ -115,6 +123,8 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void rehab() {
+        PlayerPrefs.SetInt("Controls", 1);
+        GameManager.controls = 1;
         GameManager.menuState = 0;
         tiltButton.SetActive(false);
         rehabButton.SetActive(false);

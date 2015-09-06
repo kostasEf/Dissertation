@@ -5,25 +5,24 @@ using System.Collections.Generic;
 
 public class Movement : MonoBehaviour {
 
-    Rigidbody sphere;
 
-    private const int speed = 5;
-
-    private Text text1, text2, text3;
-
+    //------Gyroscope Related------//
     private Queue<Vector3> XdataQueue = new Queue<Vector3>();
-
     private Queue<Vector3> YdataQueue = new Queue<Vector3>();
-
     private Queue<Vector3> ZdataQueue = new Queue<Vector3>();
-
-    private Queue<Vector3> AccelerationQueue = new Queue<Vector3>();
-
-    private const int sampleSize = 10;
-
     private float xfilter, yfilter, zfilter;
 
+    //------Accelerometer Related------//
     private Vector3 accel = Vector3.zero, prevAccel = Vector3.zero;
+    private Queue<Vector3> AccelerationQueue = new Queue<Vector3>();
+
+    //------Not Related------//
+    public short controls; // 0 = tilt/ 1 = rehab
+    private Text text1, text2, text3;
+    private const int sampleSize = 10;
+    Rigidbody sphere;
+    
+
 
     void Awake() {
         Screen.autorotateToLandscapeLeft = false;
@@ -56,38 +55,44 @@ public class Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update ()     {
-        xfilter = Mathf.Abs(Xfilter().x);
-        yfilter = Mathf.Abs(Yfilter().y);
-        zfilter = Mathf.Abs(Zfilter().z);
+
         accel = Input.acceleration;
 
-        //if (Xfilter().x > 0.15 && Orientation(AccelerationQueue, 'x') == 1)
-        //{
-        //    sphere.AddForce(25, 0, 0);
-        //}
-        //else if (Xfilter().x < -0.15 && Orientation(AccelerationQueue, 'x') == -1)
-        //{
-        //    sphere.AddForce(-25, 0, 0);
-        //}
+        if (controls == 1)
+        {
+            xfilter = Mathf.Abs(Xfilter().x);
+            yfilter = Mathf.Abs(Yfilter().y);
+            zfilter = Mathf.Abs(Zfilter().z);
+
+            if (Xfilter().x > 0.15 && Orientation(AccelerationQueue, 'x') == 1)
+            {
+                sphere.AddForce(25, 0, 0);
+            }
+            else if (Xfilter().x < -0.15 && Orientation(AccelerationQueue, 'x') == -1)
+            {
+                sphere.AddForce(-25, 0, 0);
+            }
 
 
-        //if (Zfilter().z > -0.25 && Zfilter().z < -0.15 && Orientation(AccelerationQueue, 'y') == 1) // Bend Forward
-        //{
-        //    sphere.AddForce(0, 0, 25);
-        //}
-        //else if (Zfilter().z < 0.25 && Zfilter().z > 0.18 && Orientation(AccelerationQueue, 'y') == -1) // Bend Backwards
-        //{
-        //    sphere.AddForce(0, 0, -25);
-        //}
-
-        
+            if (Zfilter().z > -0.25 && Zfilter().z < -0.15 && Orientation(AccelerationQueue, 'y') == 1) // Bend Forward
+            {
+                sphere.AddForce(0, 0, 25);
+            }
+            else if (Zfilter().z < 0.25 && Zfilter().z > 0.18 && Orientation(AccelerationQueue, 'y') == -1) // Bend Backwards
+            {
+                sphere.AddForce(0, 0, -25);
+            }
+        }
+        else
+        {
+            ManualControls();
+            TiltControls();
+        }
 
         //text1.text = (0 -0.1 -0.2 -0.3).ToString("0.00");
         //text2.text = Orientation(AccelerationQueue, 'x').ToString("0.00");
         //text3.text = Orientation(AccelerationQueue, 'y').ToString("0.00");
 
-        float aspect = (float)Screen.width / (float)Screen.height;
-        text2.text = aspect.ToString();
         //text2.text = Input.gyro.userAcceleration.y.ToString("0.00");
         //text3.text = Input.gyro.userAcceleration.z.ToString("0.00");
 
@@ -96,15 +101,6 @@ public class Movement : MonoBehaviour {
         //text3.text = Zfilter().z.ToString("0.00");
 
 
-        //Camera.main.transform.rotation = Input.gyro.attitude;
-
-        //Vector3 ea = Input.gyro.attitude.eulerAngles;
-
-        //Camera.main.transform.eulerAngles = new Vector3(-ea[0], -ea[1], ea[2]);
-
-        ManualControls();
-        TiltControls();
-        
 	}
 
     private void TiltControls()

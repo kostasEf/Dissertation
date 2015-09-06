@@ -19,25 +19,22 @@
  *  DONE  Create function that counts number of walls on each cell. If three place an item.
  *  DONE  Spiral Room is the goal (An item in the midle).   
  *  DONE  Entrance could have a door that opens when you visit all other rooms.
- *  DONE  Menu
+ *  DONE  Menu.
+ *  DONE  Add HARD mode where camera is close to the ball so players can not see the whole maze.
+ *  DONE  Add INSANE mode where everything is dark and there is only light around the ball
+ *  DONE  PlayerPrefs
+ *  
+ * 
  *  ---------------------------------IMPORTANT-----------------------------------------------------------------------------
  *  
  *  FIX GYROSCOPE MOVEMENT DETECTION
  *  
  *  Replace Queue with List(perhaps)
- *  
- *  ---------------------------------Menu-----------------------------------------------------------------------------
- *  
- *  Maze but instead of Rooms it has Options, Play etc
  * 
  *  ---------------------------------Extras-----------------------------------------------------------------------------
  *  
  *  
  *  Add calibrate button.
- *  
- *  Add HARD mode where camera is close to the ball so players can not see the whole maze.
- *                      +
- *  Add INSANE mode where everything is dark and there is only light around the ball
  *  
  *  Add Color Palet
  *  
@@ -45,7 +42,7 @@
  *  
  *  Particles and score when collecting pickups
  *  
- *  PlayerPrefs
+ *  
  * 
  * 
  */

@@ -32,6 +32,6 @@ public class Exit : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         move = true;
-        destination = transform.position - new Vector3(0, 1.5f, 0);
+        destination = transform.position - new Vector3(0, 2.5f, 0);
     }
 }
