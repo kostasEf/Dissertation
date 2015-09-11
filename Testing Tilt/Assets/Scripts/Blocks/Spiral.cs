@@ -7,19 +7,19 @@ public class Spiral : MonoBehaviour
     public bool move = false;
     private Vector3 destination;
 
-    private GameManager GameManager;
+    private GameManager gameManager;
 
     // Use this for initialization
     void Start()
     {
-        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
   
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.pickUpsCollected == GameManager.pickUps - 1)
+        if (gameManager.pickUpsCollected == gameManager.pickUps - 1)
         {
             move = true;
             destination = transform.position - new Vector3(0, 1.5f, 0);
@@ -29,11 +29,14 @@ public class Spiral : MonoBehaviour
         if (move)
         {
             transform.position = Vector3.Lerp(transform.position, destination, Time.deltaTime);
+        }
+    }
 
-            if (transform.localPosition.y < -0.4)
-            {
-                Destroy(gameObject);
-            }
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            gameManager.NextLVL();
         }
     }
 

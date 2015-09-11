@@ -23,8 +23,13 @@
  *  DONE  Add HARD mode where camera is close to the ball so players can not see the whole maze.
  *  DONE  Add INSANE mode where everything is dark and there is only light around the ball
  *  DONE  PlayerPrefs
+ *  DONE  Occlusion Culling
+ *  DONE  Add Pause Button;
+ *  Done  Added Timer (Countdown from 1 minute, every pickup adds 15 secs)
+ *  Done  Added PickUp number in the UI
+ *  DONE  GameOver button
+ *  DONE  After each level new lvl is loaded with the remaining timer and +1 room
  *  
- * 
  *  ---------------------------------IMPORTANT-----------------------------------------------------------------------------
  *  
  *  FIX GYROSCOPE MOVEMENT DETECTION
@@ -33,20 +38,14 @@
  * 
  *  ---------------------------------Extras-----------------------------------------------------------------------------
  *  
- *  
  *  Add calibrate button.
  *  
  *  Add Color Palet
  *  
- *  Add trail to ball
- *  
  *  Particles and score when collecting pickups
  *  
- *  Add Score
+ *  Add fade in fade out transition
  *  
- *  Add Pause Button(Return to menu);
- *  
- * Occlusion Culling
- * 
+ *  Add Score PlayerPrefs in gameover screen
  * 
  */

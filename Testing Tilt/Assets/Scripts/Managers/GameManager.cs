@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour {
     //------Maze Related------//
     public Maze mazePrefab;
     public Maze mazeInstance;
-    public Text numRLR, numLRL, numUDU, numDUD;
     private short LRL = 0, RLR = 0, UDU = 2, DUD = 0;
     private IntVector2 size = new IntVector2(12, 12);
 
@@ -19,18 +18,29 @@ public class GameManager : MonoBehaviour {
     public short menuState = 0; // 0 = Start Screen/ 1 = Mode Selection/ 2 = Controls Selection/ 3 = Hide Menu(In Game)
     public short mode; // 0 = normal/ 1 = hard/ 2 = insane
     public short controls; // 0 = tilt/ 1 = rehab
+    public GameObject gameOver;
+    private bool pause = false;
+    private MenuManager menuManager;
+
+    //------Timer Related------//
+    public float timer;
+    private float seconds;
+    private float minutes;
 
     //------Not Related------//
     public short pickUps = 0, pickUpsCollected = 0;
     private CameraManager cameraManager;
     public short cameraDistance = 0;
     public Light light;
+    public Text time;
+    
 
 	// Use this for initialization
 	void Start () 
     {
 
         cameraManager = GameObject.Find("Main Camera").GetComponent<CameraManager>();
+        menuManager = GameObject.Find("GameManager").GetComponent<MenuManager>();
 
         if (PlayerPrefs.HasKey("Mode"))
         {
@@ -57,12 +67,13 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+        Timer();
 
-        numRLR.text = "RLR = " + RLR.ToString();
-        numLRL.text = "LRL = " + LRL.ToString();
-        numUDU.text = "UDU = " + UDU.ToString();
-        numDUD.text = "DUD = " + DUD.ToString();
-
+        if (timer < 0)
+        {
+            timer = 0;
+            GameOver();
+        }
 	}
 
     private void BeginGame() 
@@ -86,31 +97,105 @@ public class GameManager : MonoBehaviour {
             mazeInstance.size = new IntVector2(23, 19);
             StartCoroutine(mazeInstance.GenerateStepByStep());
         }
-
+        
         
        
     }
 
     public void RestartGame() 
     {
-        
+
         Camera.main.transform.parent = null;
-        if(ballInstance)
+        if (ballInstance)
         {
             Destroy(ballInstance.gameObject);
         }
+        if (mazeInstance)
+        {
+            Destroy(mazeInstance.gameObject);
+        }
         StopAllCoroutines();
         pickUps = 0;
-        
-        Destroy(mazeInstance.gameObject);
+        pickUpsCollected = 0;
         BeginGame();
+        
         cameraManager.AdjustCameraPosition();
         
+    }
+
+    public void Pause()
+    {
+        pause = !pause;
+        if (pause)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        
+    }
+
+    public void Timer()
+    {
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            minutes = Mathf.Floor(timer / 60);
+            seconds = timer % 60;
+            time.text = "Time \n" + minutes.ToString("00") + ":" + seconds.ToString("00");
+        }
+        
+
+       
     }
 
     public void BackToMainMenu()
     {
         menuState = 0;
+        pause = false;
+        RestartGame();
+    }
+
+    public void GameOver()
+    {
+        Camera.main.transform.parent = null;
+        if (ballInstance)
+        {
+            Destroy(ballInstance.gameObject);
+        }
+        if (mazeInstance)
+        {
+            Destroy(mazeInstance.gameObject);
+        }
+        StopAllCoroutines();
+
+        gameOver.SetActive(true);
+        menuManager.disableMenu();
+        
+    }
+
+    public void NextLVL()
+    {
+        int random = Random.Range(0, 5);
+        if (random == 0)
+        {
+            plusLRL();
+        }
+        else if (random == 1)
+        {
+            plusRLR();
+        }
+        else if (random == 2)
+        {
+            plusDUD();
+        }
+        else if (random == 3)
+        {
+            plusUDU();
+        }
+
         RestartGame();
     }
 
@@ -120,7 +205,7 @@ public class GameManager : MonoBehaviour {
         ballInstance = Instantiate(ballPrefab, startPosition, ballPrefab.transform.rotation) as Ball;
     }
 
-    public void plusLRL()
+    private void plusLRL()
     {
         LRL += 1;
 
@@ -132,7 +217,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void minusLRL()
+    private void minusLRL()
     {
         if (LRL > 0)
         {
@@ -148,7 +233,7 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public void plusRLR()
+    private void plusRLR()
     {
         RLR += 1;
 
@@ -160,7 +245,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void minusRLR()
+    private void minusRLR()
     {
         if (RLR > 0)
         {
@@ -175,7 +260,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void plusUDU()
+    private void plusUDU()
     {
         UDU += 1;
 
@@ -187,7 +272,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void minusUDU()
+    private void minusUDU()
     {
         if (UDU > 0)
         {
@@ -202,7 +287,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void plusDUD()
+    private void plusDUD()
     {
         DUD += 1;
 
@@ -214,7 +299,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void minusDUD()
+    private void minusDUD()
     {
         if (DUD > 0)
         {

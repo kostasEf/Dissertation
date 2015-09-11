@@ -20,35 +20,5 @@ public struct IntVector2
         return a;
     }
 
-    public void Assign (IntVector2 a)
-    {
-        this.x = a.x;
-        this.z = a.z;
-    }
-
-    public static bool operator ==(IntVector2 a, IntVector2 b)
-    {
-        if(a.x == b.x && a.z == b.z)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-        
-    }
-
-    public static bool operator !=(IntVector2 a, IntVector2 b)
-    {
-        if (a.x == b.x && a.z == b.z)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-
-    }
+    
 }

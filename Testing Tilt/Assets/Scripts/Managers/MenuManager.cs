@@ -8,13 +8,22 @@ public class MenuManager : MonoBehaviour {
     public GameObject playButton;
     public GameObject modeButton;
     public GameObject controlsButton;
+
     //------Mode Menu------//
     public GameObject normalButton;
     public GameObject hardButton;
     public GameObject insaneButton;
+
     //------Controls Menu------//
     public GameObject tiltButton;
     public GameObject rehabButton;
+
+    //------Ingame UI------//
+    public GameObject mainMenu;
+    public GameObject pause;
+    public GameObject gameOver;
+    public GameObject timer;
+    public GameObject pickUps;
 
     //------Not Related------//
     private GameManager GameManager;
@@ -58,6 +67,18 @@ public class MenuManager : MonoBehaviour {
         }
 	}
 
+    public void disableMenu()
+    {
+        mainMenu.SetActive(false);
+        pause.SetActive(false);
+        timer.SetActive(false);
+        pickUps.SetActive(false);
+    }
+
+    public void disableGameOver()
+    {
+        gameOver.SetActive(false);
+    }
     public void play()
     {
         GameManager.menuState = 3;
@@ -65,6 +86,11 @@ public class MenuManager : MonoBehaviour {
         playButton.SetActive(false);
         modeButton.SetActive(false);
         controlsButton.SetActive(false);
+        mainMenu.SetActive(true);
+        pause.SetActive(true);
+        timer.SetActive(true);
+        pickUps.SetActive(true);
+        GameManager.timer = 10;
     }
 
     public void mode()    {
