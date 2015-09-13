@@ -81,8 +81,8 @@ public class MenuManager : MonoBehaviour {
     }
     public void play()
     {
+        GameManager.InitializeSizeAndRooms();
         GameManager.menuState = 3;
-        GameManager.RestartGame();
         playButton.SetActive(false);
         modeButton.SetActive(false);
         controlsButton.SetActive(false);
@@ -90,7 +90,8 @@ public class MenuManager : MonoBehaviour {
         pause.SetActive(true);
         timer.SetActive(true);
         pickUps.SetActive(true);
-        GameManager.timer = 10;
+        GameManager.timer = 30;
+        GameManager.RestartGame();
     }
 
     public void mode()    {
@@ -149,8 +150,8 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void rehab() {
-        PlayerPrefs.SetInt("Controls", 1);
-        GameManager.controls = 1;
+        PlayerPrefs.SetInt("Controls", 0);
+        GameManager.controls = 0;
         GameManager.menuState = 0;
         tiltButton.SetActive(false);
         rehabButton.SetActive(false);

@@ -29,6 +29,7 @@
  *  Done  Added PickUp number in the UI
  *  DONE  GameOver button
  *  DONE  After each level new lvl is loaded with the remaining timer and +1 room
+ *  DONE  Add Score PlayerPrefs in gameover screen
  *  
  *  ---------------------------------IMPORTANT-----------------------------------------------------------------------------
  *  
@@ -44,8 +45,8 @@
  *  
  *  Particles and score when collecting pickups
  *  
- *  Add fade in fade out transition
+ *  Add fade in fade out transition between levels
  *  
- *  Add Score PlayerPrefs in gameover screen
+ *  
  * 
  */

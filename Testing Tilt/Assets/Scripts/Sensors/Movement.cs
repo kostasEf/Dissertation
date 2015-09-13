@@ -105,7 +105,7 @@ public class Movement : MonoBehaviour {
 
     private void TiltControls()
     {
-        sphere.AddForce(accel.x * 10, 0, (accel.y + 0.2f) * 10);
+        sphere.AddForce(accel.x * 15, 0, (accel.y + 0.2f) * 15);
     }
 
     private void ManualControls()
