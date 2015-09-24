@@ -150,8 +150,8 @@ public class MenuManager : MonoBehaviour {
     }
 
     public void rehab() {
-        PlayerPrefs.SetInt("Controls", 0);
-        GameManager.controls = 0;
+        PlayerPrefs.SetInt("Controls", 1);
+        GameManager.controls = 1;
         GameManager.menuState = 0;
         tiltButton.SetActive(false);
         rehabButton.SetActive(false);

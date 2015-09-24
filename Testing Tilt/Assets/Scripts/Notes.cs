@@ -47,6 +47,8 @@
  *  
  *  Add fade in fade out transition between levels
  *  
- *  
+ *  Retry & Back To Menu buttons at GameOver
  * 
+ *  Handheld.Vibrate();
+ *  
  */

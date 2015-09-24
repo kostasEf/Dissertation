@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour {
     //------Not Related------//
     public short controls; // 0 = tilt/ 1 = rehab
     private Text text1, text2, text3;
-    private const int sampleSize = 10;
+    private const int sampleSize = 5;
     Rigidbody sphere;
     
 
@@ -54,9 +54,10 @@ public class Movement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate ()     {
+	void Update ()     {
 
         accel = Input.acceleration;
+        float x = 0.15f;
 
         if (controls == 1)
         {
@@ -64,11 +65,11 @@ public class Movement : MonoBehaviour {
             yfilter = Mathf.Abs(Yfilter().y);
             zfilter = Mathf.Abs(Zfilter().z);
 
-            if (Xfilter().x > 0.15 && Orientation(AccelerationQueue, 'x') == 1)
+            if (Xfilter().x > x && Orientation(AccelerationQueue, 'x') == 1)
             {
                 sphere.AddForce(25, 0, 0);
             }
-            else if (Xfilter().x < -0.15 && Orientation(AccelerationQueue, 'x') == -1)
+            else if (Xfilter().x < -x && Orientation(AccelerationQueue, 'x') == -1)
             {
                 sphere.AddForce(-25, 0, 0);
             }
@@ -89,17 +90,7 @@ public class Movement : MonoBehaviour {
             TiltControls();
         }
 
-        //text1.text = (0 -0.1 -0.2 -0.3).ToString("0.00");
-        //text2.text = Orientation(AccelerationQueue, 'x').ToString("0.00");
-        //text3.text = Orientation(AccelerationQueue, 'y').ToString("0.00");
-
-        //text2.text = Input.gyro.userAcceleration.y.ToString("0.00");
-        //text3.text = Input.gyro.userAcceleration.z.ToString("0.00");
-
-        //text1.text = Zfilter().z.ToString("0.00");
-        //text2.text = Yfilter().y.ToString("0.00");
-        //text3.text = Zfilter().z.ToString("0.00");
-
+        
 
 	}
 
@@ -196,7 +187,8 @@ public class Movement : MonoBehaviour {
     private Vector3 Xfilter()
     {
         
-        if (Mathf.Abs(Input.gyro.userAcceleration.x) > 0.03 && Mathf.Abs(Input.gyro.userAcceleration.x) < 0.8)
+        if (Mathf.Abs(Input.gyro.userAcceleration.x) > 0.03 && 
+            Mathf.Abs(Input.gyro.userAcceleration.x) < 0.8)
         {
             XdataQueue.Enqueue(Input.gyro.userAcceleration);
             XdataQueue.Dequeue();

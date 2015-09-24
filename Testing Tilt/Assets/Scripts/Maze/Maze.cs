@@ -19,7 +19,7 @@ public class Maze : MonoBehaviour {
     public Block_DUD blockDUD;
     public Block_UDU blockUDU;
     public Block_Spiral blockSpiral;
-    public int RLR, LRL, UDU, DUD;
+    public short RLR, LRL, UDU, DUD;
     public Play blockPlay;
     public Mode blockMode;
     public Controls blockControls;

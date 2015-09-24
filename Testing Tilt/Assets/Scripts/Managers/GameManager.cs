@@ -134,7 +134,6 @@ public class GameManager : MonoBehaviour {
         {
             Time.timeScale = 1;
         }
-        
     }
 
     public void Timer()
@@ -153,7 +152,9 @@ public class GameManager : MonoBehaviour {
     {
         menuState = 0;
         pause = false;
+        lvlCounter = 0;
         RestartGame();
+        
     }
 
     public void GameOver()
@@ -212,7 +213,7 @@ public class GameManager : MonoBehaviour {
             }
         }
         
-        score.text = "Game Over\n" +
+        score.text = "Game Over\n\n" +
             "Levels Completed " + lvlCounter.ToString() + "\n" +
             "Alltime Best " + highScore;
         lvlCounter = 0;
@@ -286,22 +287,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void minusLRL()
-    {
-        if (LRL > 0)
-        {
-            LRL -= 1;
-        }
-
-        if (size.x > 12)
-        {
-            size.x -= 2;
-            size.z -= 2;
-            cameraDistance -= 2;
-        }
-
-    }
-
     private void plusRLR()
     {
         RLR += 1;
@@ -311,21 +296,6 @@ public class GameManager : MonoBehaviour {
             size.x += 2;
             size.z += 2;
             cameraDistance += 2;
-        }
-    }
-
-    private void minusRLR()
-    {
-        if (RLR > 0)
-        {
-            RLR -= 1;
-        }
-
-        if (size.x > 12)
-        {
-            size.x -= 2;
-            size.z -= 2;
-            cameraDistance -= 2;
         }
     }
 
@@ -341,21 +311,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void minusUDU()
-    {
-        if (UDU > 0)
-        {
-            UDU -= 1;
-        }
-
-        if (size.x > 12)
-        {
-            size.x -= 2;
-            size.z -= 2;
-            cameraDistance -= 2;
-        }
-    }
-
     private void plusDUD()
     {
         DUD += 1;
@@ -368,18 +323,4 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void minusDUD()
-    {
-        if (DUD > 0)
-        {
-            DUD -= 1;
-        }
-
-        if (size.x > 12)
-        {
-            size.x -= 2;
-            size.z -= 2;
-            cameraDistance -= 2;
-        }
-    }
 }
