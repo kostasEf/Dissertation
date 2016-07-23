@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour {
     private CameraManager cameraManager;
     public short cameraDistance = 0;
     public Light light;
-    private short lvlCounter = 0;
+    public short lvlCounter = 0;
     
 
 	// Use this for initialization
@@ -159,6 +161,12 @@ public class GameManager : MonoBehaviour {
 
     public void GameOver()
     {
+        Analytics.CustomEvent("gameOver", new Dictionary<string, object>
+          {
+            { "totalTime", totalTime },
+            { "difficulty", mode },
+            { "level", lvlCounter }
+          });
         // Menustate 4 is NOTHING. It is only used during GameOver so that cameramanager does not update the camera.
         menuState = 4;
         gameOver.SetActive(true);
